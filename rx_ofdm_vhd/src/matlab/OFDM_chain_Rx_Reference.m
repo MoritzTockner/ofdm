@@ -1,11 +1,11 @@
 
 %% settings
-clear all;
+clearvars;
 %load('Tx_setup.mat');
-%HIL=true; 
+%HIL=true;
 
 tracking=true;
-quantize_on=false;
+quantize_on=true;
 equalize=true;
 nr_symbols=30;  %total number of transmitted symbols (sync+equalize+data)
 nr_equalize=8;  %number of equalizer symbols 
@@ -73,7 +73,7 @@ ModulationSymbols=[p + 1i*p; p - 1i*p; -p + 1i*p; -p - 1i*p];
 
 if quantize_on
    rx_out=round(rx_out*2048)/2048; 
-end;
+end
 
 %% Upsample before Rx Synchronization
 osr_rx=4;
@@ -83,7 +83,7 @@ allRx=allRx_osr;
 
 if quantize_on
    allRx=round(allRx*2048)/2048; 
-end;
+end
 
 %% Rx Synch
 disp('Start coarse timing synch');
@@ -94,7 +94,7 @@ if quantize_on
    allRx_sync=round(allRx*128)/128;
 else
    allRx_sync=allRx; 
-end;
+end
 
 P=zeros(length(allRx)-160*osr*osr_rx,1);
 R=zeros(length(allRx)-160*osr*osr_rx,1);
@@ -105,7 +105,7 @@ for k=1:length(P)
     P(k)=sum((allRx_sync(k:step_width:k+(63*fine_res)).*conj(allRx_sync(64*fine_res+k:step_width:k+(127*fine_res)))));
     R(k)=sum(abs(allRx_sync(64*fine_res+k:step_width:k+(127*fine_res))).^2);
     M(k)=(abs(P(k))^2)/R(k)^2;
-end;
+end
 
 figure(5)
 clf;
@@ -132,7 +132,7 @@ window_len=32*fine_res
 win_min=zeros(length(P)-window_len+1,1);
 for k=1:length(win_min)
   win_min(k)=min(M(k:k+window_len-1));
-end;
+end
 
 
 peak_idx=find((win_min>0.9));
@@ -171,22 +171,35 @@ disp(['Estimated carrier frequncy offset : ' num2str(CFO_est) 'Hz']);
   else
     CFO_bb_cancel=exp(1i*2*pi*CFO_est*t_vec);
     RxAntennaChips=RxAntennaChips.*CFO_bb_cancel;      
-  end;
+  end
     
 
 %% RX Part
 for k=1:nr_symbols  
 %% OFDM_Rx
     %RxChips=RxAntennaChips(osr*osr_rx*NumberOfGuardChips+1:osr*osr_rx:osr*osr_rx*(NumberOfGuardChips+NumberOfSubcarrier)); %extract symbol
+   
+    RxChips = RxAntennaChips(1:osr*osr_rx:1+osr*osr_rx*(NumberOfSubcarrier-1)); %extract symbol
     
-    RxChips=RxAntennaChips(1:osr*osr_rx:1+osr*osr_rx*(NumberOfSubcarrier-1)); %extract symbol
-    
+    oldpath = addpath('../../syn/fft_ii_0_example_design/Matlab_model/');
     RxModSymbols=fft(RxChips);
-    if quantize_on 
-      RxModSymbols=round(RxModSymbols/sqrt(128)*pow2(11))/pow2(11);
+    N_fft = NumberOfSubcarrier;
+    N_fft_blocks = floor(length(RxChips)/N_fft);
+    RxChips = RxChips*pow2(12);
+    RxChips = RxChips.';
+    RxModSymbolsVDHL = fft_ii_0_example_design_model(RxChips, N_fft*ones(1, N_fft_blocks), 0); 
+    % Undo bit reverse from FFT VHDL model
+    RxModSymbolsVDHL = RxModSymbolsVDHL(digit_reverse(0:(N_fft-1), log2(N_fft)) + 1);
+    RxModSymbolsVDHL = RxModSymbolsVDHL.';
+    RxModSymbolsVHDL = RxModSymbolsVDHL/pow2(12);
+    path(oldpath);
+
+    if quantize_on
+      RxModSymbols=round(RxModSymbolsVHDL/sqrt(128)*pow2(11))/pow2(11);
+%       RxModSymbols=round(RxModSymbols/sqrt(128)*pow2(11))/pow2(11);      
     else
       RxModSymbols=RxModSymbols/sqrt(128);
-    end;
+    end
     %% Modulation Demapper 
     if (k>1 && k<=nr_equalize+1 && equalize)
       corr_idx=0;
@@ -194,7 +207,7 @@ for k=1:nr_symbols
       if k==2  %first run of channel estimation (reset Hk_inv)
         disp('Start channel estimation');
         Hk=zeros(NumberOfSubcarrier,1);
-      end;
+      end
 
       Hk=Hk+RxModSymbols;
       if k==nr_equalize+1
@@ -203,7 +216,7 @@ for k=1:nr_symbols
             Hk_inv=round(1./(Hk./TxSymbol_equal)*pow2(11))/pow2(11);
         else
             Hk_inv=1./(Hk./TxSymbol_equal);
-        end;
+        end
         disp('Finished channel estimation');
         figure(21)
         clf;
@@ -215,8 +228,8 @@ for k=1:nr_symbols
         if pause_key
             pause;
             disp('Press key to continue')
-        end;    
-      end;
+        end    
+      end
       
     else
         if (equalize==false && k==2)||(equalize && k==nr_equalize+2)
@@ -224,15 +237,15 @@ for k=1:nr_symbols
           if pause_key
                 disp('Press key to continue')
                 pause;
-          end;          
-        end;
+          end          
+        end
         
         %correct RxModSymbols
         if quantize_on
           RxModSymbols=round(RxModSymbols.*Hk_inv*pow2(11))/pow2(11);
         else
           RxModSymbols=RxModSymbols.*Hk_inv;
-        end;    
+        end    
         RxModSymbVec=[RxModSymbVec;RxModSymbols];
         
         if k>1 %dont_store bits in first sync symbol
@@ -242,21 +255,21 @@ for k=1:nr_symbols
               RxSymbols(j,2)=0;
            else
               RxSymbols(j,2)=1;
-           end;   
+           end   
            if imag(RxModSymbols(j))>=0 
               RxSymbols(j,1)=0;
            else
               RxSymbols(j,1)=1;
-           end;   
-          end;
+           end   
+          end
           RxBits=zeros(2*length(RxSymbols),1);
           for j=1:length(RxSymbols(:,1))
             RxBits(j*2-1)=RxSymbols(j,1); 
             RxBits(j*2)=RxSymbols(j,2);
-          end;    
+          end    
           allRxBits=[allRxBits; RxBits]; 
-        end;  
-    end;  
+        end  
+    end  
     
         % Plot Constellation Diagram
         figure(1)
@@ -269,7 +282,7 @@ for k=1:nr_symbols
           plot(real(RxModSymbols),imag(RxModSymbols),'ro');        
         else
           plot(real(RxModSymbols),imag(RxModSymbols),'g+');
-        end;
+        end
         plot(real(ModulationSymbols),imag(ModulationSymbols),'r+');
         axis([-2 2 -2 2]);
     
@@ -283,7 +296,7 @@ for k=1:nr_symbols
           plot(abs(RxModSymbols),'ro');
         else  
           plot(abs(RxModSymbols),'g+');
-        end;
+        end
         
         figure(3);
         hold on;
@@ -296,7 +309,7 @@ for k=1:nr_symbols
           plot(angle(RxModSymbols),'ro');
         else
           plot(angle(RxModSymbols),'g+');
-        end;
+        end
         
         if k==1
             disp('Finished coarse timing synch');
@@ -304,8 +317,8 @@ for k=1:nr_symbols
             if pause_key
                 disp('Press key to continue')
                 pause;
-            end;                
-        end;
+            end                
+        end
        
         %timing tracking
         if (k>=nr_equalize+2 && tracking)
@@ -332,10 +345,10 @@ for k=1:nr_symbols
               corr_idx=1*delta_idx;
             else
               corr_idx=-1*delta_idx;  
-            end; 
+            end 
             
             delta_idx_vec=[delta_idx_vec corr_idx];
-        end;
+        end
         %disp('Tracking')
         %pause;        
    
@@ -347,7 +360,7 @@ for k=1:nr_symbols
     RxAntennaChips=RxAntennaChips*phase_offset_cancel;
 
     %% Power and SNR calculation
-end; %k loop
+end %k loop
 disp('Finished regular receive + timing tracking');
  
 %return

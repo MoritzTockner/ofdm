@@ -26,11 +26,11 @@ function [y] = fft_ii_0_example_design_model(x,nps,inverse)
 % addpath(strcat(getenv('QUARTUS_ROOTDIR'),'/../ip/altera/dsp/altera_fft_ii/src/matlab/lib/'));
 % Parameterization Space. 
 N=128;
-DATA_PREC=12;
-TWIDDLE_PREC=12;
+DATA_PREC=18;
+TWIDDLE_PREC=8;
 % Input is in natural order                                                           
 INPUT_ORDER=1;  
-OUTPUT_ORDER=1;
+OUTPUT_ORDER=0;
 % Output is in natural order                                                           
 % Fixed point data data_rep
 REPRESENTATION=0;
