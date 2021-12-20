@@ -30,14 +30,14 @@ DATA_PREC=12;
 TWIDDLE_PREC=12;
 % Input is in natural order                                                           
 INPUT_ORDER=1;  
-OUTPUT_ORDER=0;
-% Output is in bit-reversed order
+OUTPUT_ORDER=1;
+% Output is in natural order                                                           
 % Fixed point data data_rep
 REPRESENTATION=0;
 % DSP multiplier architecture
 SVOPT=2;
 % Data width at the input to each stage                                                                                     
-PRUNE=[1,0,0,0];
+PRUNE=[2,3,2,0];
 y=[];           
 i=1;
 %for each block in the vector N, perform the transform

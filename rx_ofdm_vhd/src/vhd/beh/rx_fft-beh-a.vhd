@@ -23,8 +23,8 @@
 architecture beh of rx_fft is
 
   constant reset_active_c : std_ulogic := '0';
-  signal sig1             : integer;
-  signal sig2             : std_ulogic_vector(out2_o'range);
+  --signal sig1             : integer;
+  --signal sig2             : std_ulogic_vector(out2_o'range);
 
   component fft_ofdm is
     port (
@@ -51,31 +51,34 @@ architecture beh of rx_fft is
   end component fft_ofdm;
 
   signal fft_isready   : std_ulogic;
-  signal fft_in_error  : std_ulogic;
-  signal fft_out_error : std_ulogic;
+  signal fft_in_error  : std_ulogic_vector(1 downto 0) := "00";
+  signal fft_out_error : std_ulogic_vector(1 downto 0);
   signal end_of_frame  : std_ulogic;
-  signal chip_cnt      : unsigned(fftpts_in'range);
+  signal chip_cnt      : unsigned(7 downto 0);
 
+  signal rx_fft_i : std_ulogic_vector(17 downto 0);
+  signal rx_fft_q : std_ulogic_vector(17 downto 0);
 begin  -- beh
 
-  outreg : process(res, clk)
+  outreg : process(sys_reset_i, sys_clk_i)
   begin
-    if sys_reset_ = reset_active_c then
+    if sys_reset_i = reset_active_c then
       --out2_o <= (others => '0');
       end_of_frame <= '1';
-    elsif clk'event and clk = '1' then
+    elsif sys_clk_i'event and sys_clk_i = '1' then
 
       if rx_data_valid_i = '1' and fft_isready = '1' then
 
-        if chip_cnt = fftpts_in'range -1 then
+        if chip_cnt = 2**7 -1 then
           chip_cnt <= chip_cnt;
         else
           chip_cnt <= chip_cnt + 1;
         end if;
         
       --out2_o <= sig2;
-      end if;
-    end process outreg;
+			end if;
+		end if;
+  end process outreg;
 
 
       u0 : component fft_ofdm
@@ -84,20 +87,20 @@ begin  -- beh
           reset_n                        => std_logic(sys_reset_i),  --    rst.reset_n
           sink_valid                     => std_logic(rx_data_valid_i),  --   sink.sink_valid
           std_ulogic(sink_ready)         => fft_isready,  --       .sink_ready
-          sink_error                     => std_logic(fft_in_error),  --       .sink_error
+          sink_error                     => std_logic_vector(fft_in_error),  --       .sink_error
           sink_sop                       => std_logic(rx_data_first_i),  --       .sink_sop
-          sink_eop                       => std_ulogic(end_of_frame),  --       .sink_eop
-          sink_real                      => std_ulogic_vector(rx_data_i_i),  --       .sink_real
-          sink_imag                      => std_ulogic_vector(rx_data_q_i),  --       .sink_imag
-          fftpts_in                      => std_ulogic_vector(to_unsigned(2**7, 8)),  --       .fftpts_in
+          sink_eop                       => std_logic(end_of_frame),  --       .sink_eop
+          sink_real                      => std_logic_vector(rx_data_i_i),  --       .sink_real
+          sink_imag                      => std_logic_vector(rx_data_q_i),  --       .sink_imag
+          fftpts_in                      => std_logic_vector(to_unsigned(2**7, 8)),  --       .fftpts_in
           inverse                        => "0",  --       .inverse
           std_ulogic(source_valid)       => rx_fft_valid_o,  -- source.source_valid
           source_ready                   => '1',  --       .source_ready
-          std_ulogic(source_error)       => fft_out_error,  --       .source_error
+          std_ulogic_vector(source_error)       => fft_out_error,  --       .source_error
           std_ulogic(source_sop)         => rx_fft_first_o,  -- start of package
           std_ulogic(source_eop)         => open,         --       .source_eop
-          std_ulogic_vector(source_real) => rx_fft_i_o,   --       .source_real
-          std_ulogic_vector(source_imag) => rx_fft_q_o,   --       .source_imag
+          std_ulogic_vector(source_real) => rx_fft_i,   --       .source_real
+          std_ulogic_vector(source_imag) => rx_fft_q,   --       .source_imag
           std_ulogic_vector(fftpts_out)  => open  --       .fftpts_out
           );
 

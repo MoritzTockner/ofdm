@@ -30,8 +30,8 @@ module fft_ii_0_example_design_core (
 	output source_sop,
 	output source_eop,
 	output source_valid,
-	output [17 : 0] source_real,
-	output [17 : 0] source_imag
+	output [11 : 0] source_real,
+	output [11 : 0] source_imag
 	);
 
 	auk_dspip_r22sdf_top #(
@@ -40,14 +40,14 @@ module fft_ii_0_example_design_core (
 		.NUM_STAGES_g(4),
 		.DATAWIDTH_g(12),
 		.TWIDWIDTH_g(12),
-		.MAX_GROW_g (6),
+		.MAX_GROW_g (0),
 		.TWIDROM_BASE_g("fft_ii_0_example_design_core_"),
 		.DSP_ROUNDING_g(0),
 		.INPUT_FORMAT_g("NATURAL_ORDER"),
-		.OUTPUT_FORMAT_g("BIT_REVERSED"),
+		.OUTPUT_FORMAT_g("NATURAL_ORDER"),
 		.REPRESENTATION_g("FIXEDPT"),
 		.DSP_ARCH_g(2),
-        .PRUNE_g("1,0,0,0") 
+        .PRUNE_g("2,3,2,0") 
 	)
 	auk_dspip_r22sdf_top_inst (
 		.clk(clk),

@@ -43,7 +43,7 @@ import verbosity_pkg::*;
 `define IN_INV_FILE "fft_ii_0_example_design_inverse_report.txt"// List of directions for FFT in bi-directional mode, 1 per line formated as an integer
 `define DATA_REPRESENTATION "Fixed Point" //Fixed or Float or Block Float
 `define B_IN 12 //32 for SINGLE precision Float
-`define B_OUT 18 //32 for SINGLE precision Float
+`define B_OUT 12 //32 for SINGLE precision Float
 `define DIRECTION "Bi-directional" // Reverse or Forward or Bi-directional
 `define DATA_FLOW "Variable Streaming" // Buffered Burst or Burst or Streaming or Variable Streaming
 `define FFT_LENGTH 128 //Max for variable size

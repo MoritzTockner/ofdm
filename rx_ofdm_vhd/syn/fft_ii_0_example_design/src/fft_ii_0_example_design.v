@@ -17,11 +17,11 @@ module fft_ii_0_example_design (
 		output wire [1:0]  core_source_error,         //            .error
 		output wire        core_source_startofpacket, //            .startofpacket
 		output wire        core_source_endofpacket,   //            .endofpacket
-		output wire [43:0] core_source_data           //            .data
+		output wire [31:0] core_source_data           //            .data
 	);
 
-	wire  [17:0] core_source_imag; // port fragment
-	wire  [17:0] core_source_real; // port fragment
+	wire  [11:0] core_source_imag; // port fragment
+	wire  [11:0] core_source_real; // port fragment
 	wire   [7:0] core_fftpts_out;  // port fragment
 
 	fft_ii_0_example_design_core core (
@@ -41,11 +41,11 @@ module fft_ii_0_example_design (
 		.source_error (core_source_error),         //       .error
 		.source_sop   (core_source_startofpacket), //       .startofpacket
 		.source_eop   (core_source_endofpacket),   //       .endofpacket
-		.source_real  (core_source_real[17:0]),    //       .data
-		.source_imag  (core_source_imag[17:0]),    //       .data
+		.source_real  (core_source_real[11:0]),    //       .data
+		.source_imag  (core_source_imag[11:0]),    //       .data
 		.fftpts_out   (core_fftpts_out[7:0])       //       .data
 	);
 
-	assign core_source_data = { core_source_real[17:0], core_source_imag[17:0], core_fftpts_out[7:0] };
+	assign core_source_data = { core_source_real[11:0], core_source_imag[11:0], core_fftpts_out[7:0] };
 
 endmodule

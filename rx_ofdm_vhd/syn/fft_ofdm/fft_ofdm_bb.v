@@ -36,7 +36,7 @@ module fft_ofdm (
 	output	[1:0]	source_error;
 	output		source_sop;
 	output		source_eop;
-	output	[17:0]	source_real;
-	output	[17:0]	source_imag;
+	output	[11:0]	source_real;
+	output	[11:0]	source_imag;
 	output	[7:0]	fftpts_out;
 endmodule
