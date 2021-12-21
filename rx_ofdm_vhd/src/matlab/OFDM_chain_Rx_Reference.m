@@ -180,18 +180,17 @@ for k=1:nr_symbols
     %RxChips=RxAntennaChips(osr*osr_rx*NumberOfGuardChips+1:osr*osr_rx:osr*osr_rx*(NumberOfGuardChips+NumberOfSubcarrier)); %extract symbol
    
     RxChips = RxAntennaChips(1:osr*osr_rx:1+osr*osr_rx*(NumberOfSubcarrier-1)); %extract symbol
+%     RxModSymbols = fft(RxChips);
     
     oldpath = addpath('../../syn/fft_ii_0_example_design/Matlab_model/');
-    RxModSymbols=fft(RxChips);
     N_fft = NumberOfSubcarrier;
-    N_fft_blocks = floor(length(RxChips)/N_fft);
-    RxChips = RxChips*pow2(12);
-    RxChips = RxChips.';
-    RxModSymbolsVDHL = fft_ii_0_example_design_model(RxChips, N_fft*ones(1, N_fft_blocks), 0); 
-    % Undo bit reverse from FFT VHDL model
-    RxModSymbolsVDHL = RxModSymbolsVDHL(digit_reverse(0:(N_fft-1), log2(N_fft)) + 1);
+    number_of_fft_blocks = floor(length(RxChips)/N_fft);
+    RxChips = RxChips*pow2(11);  % change format from Q0.11 to Q11.0
+    RxChips = RxChips.';         % change to row vector for fft model
+    RxModSymbolsVDHL = fft_ii_0_example_design_model(RxChips, N_fft*ones(1, number_of_fft_blocks), 0); 
+    RxModSymbolsVDHL = RxModSymbolsVDHL(digit_reverse(0:(N_fft-1), log2(N_fft)) + 1); % undo bit reverse from FFT VHDL model
     RxModSymbolsVDHL = RxModSymbolsVDHL.';
-    RxModSymbolsVHDL = RxModSymbolsVDHL/pow2(12);
+    RxModSymbolsVHDL = RxModSymbolsVDHL/pow2(11);
     path(oldpath);
 
     if quantize_on
