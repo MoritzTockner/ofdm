@@ -1,0 +1,79 @@
+Info: Starting: Create simulation model
+Info: qsys-generate C:\Plainer_git\ESD3\ofdm\rx_ofdm_vhd\syn\fft_ofdm.qsys --simulation=VHDL --allow-mixed-language-simulation --output-directory=C:\Plainer_git\ESD3\ofdm\rx_ofdm_vhd\syn\fft_ofdm\simulation --family="Cyclone V" --part=5CSXFC6D6F31C6
+Progress: Loading syn/fft_ofdm.qsys
+Progress: Reading input file
+Progress: Adding fft_ii_0 [altera_fft_ii 20.1]
+Progress: Parameterizing module fft_ii_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Info: fft_ofdm.fft_ii_0: Radix-2 digit reverse implied
+Info: fft_ofdm: Generating fft_ofdm "fft_ofdm" for SIM_VHDL
+Info: fft_ii_0: --- add file: fft_ofdm_fft_ii_0_opt_twr3.hex
+Info: fft_ii_0: --- add file: fft_ofdm_fft_ii_0_opt_twi1.hex
+Info: fft_ii_0: --- add file: fft_ofdm_fft_ii_0_opt_twr1.hex
+Info: fft_ii_0: --- add file: fft_ofdm_fft_ii_0_opt_twi2.hex
+Info: fft_ii_0: --- add file: fft_ofdm_fft_ii_0_opt_twi3.hex
+Info: fft_ii_0: --- add file: fft_ofdm_fft_ii_0_opt_twr2.hex
+Info: fft_ii_0: "fft_ofdm" instantiated altera_fft_ii "fft_ii_0"
+Info: fft_ofdm: Done "fft_ofdm" with 2 modules, 136 files
+Info: qsys-generate succeeded.
+Info: Finished: Create simulation model
+Info: Starting: Create Modelsim Project.
+Info: sim-script-gen --spd=C:\Plainer_git\ESD3\ofdm\rx_ofdm_vhd\syn\fft_ofdm\fft_ofdm.spd --output-directory=C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/simulation/ --use-relative-paths=true
+Info: Doing: ip-make-simscript --spd=C:\Plainer_git\ESD3\ofdm\rx_ofdm_vhd\syn\fft_ofdm\fft_ofdm.spd --output-directory=C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/simulation/ --use-relative-paths=true
+Info: Generating the following file(s) for MODELSIM simulator in C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/simulation/ directory:
+Info: 	mentor/msim_setup.tcl
+Info: Skipping VCS script generation since VHDL file $QUARTUS_INSTALL_DIR/eda/sim_lib/altera_syn_attributes.vhd is required for simulation
+Info: Generating the following file(s) for VCSMX simulator in C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/simulation/ directory:
+Info: 	synopsys/vcsmx/synopsys_sim.setup
+Info: 	synopsys/vcsmx/vcsmx_setup.sh
+Info: Generating the following file(s) for NCSIM simulator in C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/simulation/ directory:
+Info: 	cadence/cds.lib
+Info: 	cadence/hdl.var
+Info: 	cadence/ncsim_setup.sh
+Info: 	1 .cds.lib files in cadence/cds_libs/ directory
+Info: Generating the following file(s) for RIVIERA simulator in C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/simulation/ directory:
+Info: 	aldec/rivierapro_setup.tcl
+Info: For information on how to simulate your IP, see the explanatory comments in the simulator-specific subdirectories under C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/simulation/.
+Info: Regenerate these scripts whenever you make any change to any Quartus-generated IP in your project.
+Info: Finished: Create Modelsim Project.
+Info: Starting: Create block symbol file (.bsf)
+Info: qsys-generate C:\Plainer_git\ESD3\ofdm\rx_ofdm_vhd\syn\fft_ofdm.qsys --block-symbol-file --output-directory=C:\Plainer_git\ESD3\ofdm\rx_ofdm_vhd\syn\fft_ofdm --family="Cyclone V" --part=5CSXFC6D6F31C6
+Progress: Loading syn/fft_ofdm.qsys
+Progress: Reading input file
+Progress: Adding fft_ii_0 [altera_fft_ii 20.1]
+Progress: Parameterizing module fft_ii_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Info: fft_ofdm.fft_ii_0: Radix-2 digit reverse implied
+Info: qsys-generate succeeded.
+Info: Finished: Create block symbol file (.bsf)
+Info: 
+Info: Starting: Create HDL design files for synthesis
+Info: qsys-generate C:\Plainer_git\ESD3\ofdm\rx_ofdm_vhd\syn\fft_ofdm.qsys --synthesis=VHDL --greybox --output-directory=C:\Plainer_git\ESD3\ofdm\rx_ofdm_vhd\syn\fft_ofdm\synthesis --family="Cyclone V" --part=5CSXFC6D6F31C6
+Progress: Loading syn/fft_ofdm.qsys
+Progress: Reading input file
+Progress: Adding fft_ii_0 [altera_fft_ii 20.1]
+Progress: Parameterizing module fft_ii_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Info: fft_ofdm.fft_ii_0: Radix-2 digit reverse implied
+Info: fft_ofdm: Generating fft_ofdm "fft_ofdm" for QUARTUS_SYNTH
+Info: fft_ii_0: --- add file: fft_ofdm_fft_ii_0_opt_twr3.hex
+Info: fft_ii_0: --- add file: fft_ofdm_fft_ii_0_opt_twi1.hex
+Info: fft_ii_0: --- add file: fft_ofdm_fft_ii_0_opt_twr1.hex
+Info: fft_ii_0: --- add file: fft_ofdm_fft_ii_0_opt_twi2.hex
+Info: fft_ii_0: --- add file: fft_ofdm_fft_ii_0_opt_twi3.hex
+Info: fft_ii_0: --- add file: fft_ofdm_fft_ii_0_opt_twr2.hex
+Info: fft_ii_0: "fft_ofdm" instantiated altera_fft_ii "fft_ii_0"
+Info: fft_ofdm: Done "fft_ofdm" with 2 modules, 48 files
+Info: Generating third-party timing and resource estimation model ...
+Info: Done generating third-party timing and resource estimation model.
+Info: qsys-generate succeeded.
+Info: Stopping: Create HDL design files for synthesis
