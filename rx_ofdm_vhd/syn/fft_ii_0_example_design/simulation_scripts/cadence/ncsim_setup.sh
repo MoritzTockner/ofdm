@@ -12,7 +12,7 @@
 # or its authorized distributors. Please refer to the applicable 
 # agreement for further details.
 
-# ACDS 20.1 720 win32 2021.12.20.20:14:18
+# ACDS 20.1 720 win32 2021.12.21.15:43:01
 
 # ----------------------------------------
 # ncsim - auto-generated simulation script
@@ -106,7 +106,7 @@
 # within the Quartus project, and generate a unified
 # script which supports all the Altera IP within the design.
 # ----------------------------------------
-# ACDS 20.1 720 win32 2021.12.20.20:14:18
+# ACDS 20.1 720 win32 2021.12.21.15:43:01
 # ----------------------------------------
 # initialize variables
 TOP_LEVEL_NAME="test_program"
@@ -163,13 +163,12 @@ mkdir -p ./libraries/cyclonev/
 # ----------------------------------------
 # copy RAM/ROM files to simulation directory
 if [ $SKIP_FILE_COPY -eq 0 ]; then
-  cp -f $QSYS_SIMDIR/../src/fft_ii_0_example_design_core_opt_twi1.hex ./
-  cp -f $QSYS_SIMDIR/../src/fft_ii_0_example_design_core_opt_twi2.hex ./
-  cp -f $QSYS_SIMDIR/../src/fft_ii_0_example_design_core_opt_twi3.hex ./
-  cp -f $QSYS_SIMDIR/../src/fft_ii_0_example_design_core_opt_twr1.hex ./
-  cp -f $QSYS_SIMDIR/../src/fft_ii_0_example_design_core_opt_twr2.hex ./
-  cp -f $QSYS_SIMDIR/../src/fft_ii_0_example_design_core_opt_twr3.hex ./
-  cp -f $QSYS_SIMDIR/../test_data/fft_ii_0_example_design_blksize_report.txt ./
+  cp -f $QSYS_SIMDIR/../src/fft_ii_0_example_design_core_1n128cos.hex ./
+  cp -f $QSYS_SIMDIR/../src/fft_ii_0_example_design_core_1n128sin.hex ./
+  cp -f $QSYS_SIMDIR/../src/fft_ii_0_example_design_core_2n128cos.hex ./
+  cp -f $QSYS_SIMDIR/../src/fft_ii_0_example_design_core_2n128sin.hex ./
+  cp -f $QSYS_SIMDIR/../src/fft_ii_0_example_design_core_3n128cos.hex ./
+  cp -f $QSYS_SIMDIR/../src/fft_ii_0_example_design_core_3n128sin.hex ./
   cp -f $QSYS_SIMDIR/../test_data/fft_ii_0_example_design_imag_input.txt ./
   cp -f $QSYS_SIMDIR/../test_data/fft_ii_0_example_design_inverse_report.txt ./
   cp -f $QSYS_SIMDIR/../test_data/fft_ii_0_example_design_real_input.txt ./
@@ -210,20 +209,23 @@ fi
 # ----------------------------------------
 # compile design files in correct order
 if [ $SKIP_COM -eq 0 ]; then
-  ncvhdl -v93 $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS   "$QSYS_SIMDIR/../src/auk_dspip_text_pkg.vhd"                  -work work -cdslib ./cds_libs/work.cds.lib
-  ncvhdl -v93 $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS   "$QSYS_SIMDIR/../src/auk_dspip_math_pkg.vhd"                  -work work -cdslib ./cds_libs/work.cds.lib
-  ncvhdl -v93 $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS   "$QSYS_SIMDIR/../src/auk_dspip_lib_pkg.vhd"                   -work work -cdslib ./cds_libs/work.cds.lib
-  ncvhdl -v93 $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS   "$QSYS_SIMDIR/../src/auk_dspip_roundsat.vhd"                  -work work -cdslib ./cds_libs/work.cds.lib
-  ncvlog -sv $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/../src/avalon_utilities_pkg.sv"                 -work work -cdslib ./cds_libs/work.cds.lib
-  ncvlog -sv $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/../src/verbosity_pkg.sv"                        -work work -cdslib ./cds_libs/work.cds.lib
-  ncvlog -sv $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/../src/altera_avalon_clock_source.sv"           -work work -cdslib ./cds_libs/work.cds.lib
-  ncvlog -sv $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/../src/altera_avalon_reset_source.sv"           -work work -cdslib ./cds_libs/work.cds.lib
-  ncvlog -sv $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/../src/altera_avalon_st_sink_bfm.sv"            -work work -cdslib ./cds_libs/work.cds.lib
-  ncvlog -sv $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/../src/altera_avalon_st_source_bfm.sv"          -work work -cdslib ./cds_libs/work.cds.lib
-  ncvlog $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS     "$QSYS_SIMDIR/../src/fft_ii_0_example_design.v"               -work work -cdslib ./cds_libs/work.cds.lib
-  ncvlog -sv $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/../src/fft_ii_0_example_design_core.sv"         -work work -cdslib ./cds_libs/work.cds.lib
-  ncvlog $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS     "$QSYS_SIMDIR/../src/fft_ii_0_example_design_tb.v"            -work work -cdslib ./cds_libs/work.cds.lib
-  ncvlog -sv $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/../src/fft_ii_0_example_design_test_program.sv" -work work -cdslib ./cds_libs/work.cds.lib
+  ncvhdl -v93 $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS   "$QSYS_SIMDIR/../src/auk_dspip_text_pkg.vhd"                    -work work -cdslib ./cds_libs/work.cds.lib
+  ncvhdl -v93 $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS   "$QSYS_SIMDIR/../src/auk_dspip_math_pkg.vhd"                    -work work -cdslib ./cds_libs/work.cds.lib
+  ncvhdl -v93 $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS   "$QSYS_SIMDIR/../src/auk_dspip_lib_pkg.vhd"                     -work work -cdslib ./cds_libs/work.cds.lib
+  ncvhdl -v93 $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS   "$QSYS_SIMDIR/../src/auk_dspip_roundsat.vhd"                    -work work -cdslib ./cds_libs/work.cds.lib
+  ncvhdl -v93 $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS   "$QSYS_SIMDIR/../src/auk_dspip_avalon_streaming_sink.vhd"       -work work -cdslib ./cds_libs/work.cds.lib
+  ncvhdl -v93 $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS   "$QSYS_SIMDIR/../src/auk_dspip_avalon_streaming_source.vhd"     -work work -cdslib ./cds_libs/work.cds.lib
+  ncvhdl -v93 $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS   "$QSYS_SIMDIR/../src/auk_dspip_avalon_streaming_controller.vhd" -work work -cdslib ./cds_libs/work.cds.lib
+  ncvlog -sv $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/../src/avalon_utilities_pkg.sv"                   -work work -cdslib ./cds_libs/work.cds.lib
+  ncvlog -sv $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/../src/verbosity_pkg.sv"                          -work work -cdslib ./cds_libs/work.cds.lib
+  ncvlog -sv $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/../src/altera_avalon_clock_source.sv"             -work work -cdslib ./cds_libs/work.cds.lib
+  ncvlog -sv $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/../src/altera_avalon_reset_source.sv"             -work work -cdslib ./cds_libs/work.cds.lib
+  ncvlog -sv $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/../src/altera_avalon_st_sink_bfm.sv"              -work work -cdslib ./cds_libs/work.cds.lib
+  ncvlog -sv $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/../src/altera_avalon_st_source_bfm.sv"            -work work -cdslib ./cds_libs/work.cds.lib
+  ncvlog $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS     "$QSYS_SIMDIR/../src/fft_ii_0_example_design.v"                 -work work -cdslib ./cds_libs/work.cds.lib
+  ncvlog -sv $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/../src/fft_ii_0_example_design_core.sv"           -work work -cdslib ./cds_libs/work.cds.lib
+  ncvlog $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS     "$QSYS_SIMDIR/../src/fft_ii_0_example_design_tb.v"              -work work -cdslib ./cds_libs/work.cds.lib
+  ncvlog -sv $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/../src/fft_ii_0_example_design_test_program.sv"   -work work -cdslib ./cds_libs/work.cds.lib
 fi
 
 # ----------------------------------------

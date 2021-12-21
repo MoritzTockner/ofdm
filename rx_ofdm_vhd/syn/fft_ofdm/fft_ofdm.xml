@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <deploy
- date="2021.12.20.21:21:20"
+ date="2021.12.21.15:41:57"
  outputDirectory="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/">
  <perimeter>
   <parameter
@@ -72,7 +72,6 @@
    <port name="sink_eop" direction="input" role="sink_eop" width="1" />
    <port name="sink_real" direction="input" role="sink_real" width="18" />
    <port name="sink_imag" direction="input" role="sink_imag" width="18" />
-   <port name="fftpts_in" direction="input" role="fftpts_in" width="8" />
    <port name="inverse" direction="input" role="inverse" width="1" />
   </interface>
   <interface name="source" kind="conduit" start="0">
@@ -85,18 +84,18 @@
    <port name="source_eop" direction="output" role="source_eop" width="1" />
    <port name="source_real" direction="output" role="source_real" width="18" />
    <port name="source_imag" direction="output" role="source_imag" width="18" />
-   <port name="fftpts_out" direction="output" role="fftpts_out" width="8" />
+   <port name="source_exp" direction="output" role="source_exp" width="6" />
   </interface>
  </perimeter>
  <entity
    path=""
-   parameterizationKey="fft_ofdm:1.0:AUTO_CLK_CLOCK_DOMAIN=-1,AUTO_CLK_CLOCK_RATE=-1,AUTO_CLK_RESET_DOMAIN=-1,AUTO_DEVICE=5CSXFC6D6F31C6,AUTO_DEVICE_FAMILY=Cyclone V,AUTO_DEVICE_SPEEDGRADE=6_H6,AUTO_GENERATION_ID=1640031679,AUTO_UNIQUE_ID=(altera_fft_ii:20.1:CALC_LATENCY=128,THROUGHPUT_LATENCY=128,data_flow=Variable Streaming,data_rep=Fixed Point,design_env=NATIVE,direction=Bi-directional,dsp_resource_opt=false,engine_arch=Quad Output,hard_fp=false,hyper_opt=false,in_order=Natural,in_width=18,in_width_derived=18,length=128,num_engines=1,num_engines_derived=1,out_order=Digit Reverse,out_width=18,out_width_derived=18,selected_device_family=Cyclone V,twid_width=8,twid_width_derived=8)"
+   parameterizationKey="fft_ofdm:1.0:AUTO_CLK_CLOCK_DOMAIN=-1,AUTO_CLK_CLOCK_RATE=-1,AUTO_CLK_RESET_DOMAIN=-1,AUTO_DEVICE=5CSXFC6D6F31C6,AUTO_DEVICE_FAMILY=Cyclone V,AUTO_DEVICE_SPEEDGRADE=6_H6,AUTO_GENERATION_ID=1640097715,AUTO_UNIQUE_ID=(altera_fft_ii:20.1:CALC_LATENCY=171,THROUGHPUT_LATENCY=160,data_flow=Buffered Burst,data_rep=Block Floating Point,design_env=NATIVE,direction=Bi-directional,dsp_resource_opt=false,engine_arch=Quad Output,hard_fp=false,hyper_opt=false,in_order=Natural,in_width=18,in_width_derived=18,length=128,num_engines=1,num_engines_derived=1,out_order=Natural,out_width=18,out_width_derived=18,selected_device_family=Cyclone V,twid_width=8,twid_width_derived=8)"
    instancePathKey="fft_ofdm"
    kind="fft_ofdm"
    version="1.0"
    name="fft_ofdm">
   <parameter name="AUTO_CLK_CLOCK_RATE" value="-1" />
-  <parameter name="AUTO_GENERATION_ID" value="1640031679" />
+  <parameter name="AUTO_GENERATION_ID" value="1640097715" />
   <parameter name="AUTO_DEVICE" value="5CSXFC6D6F31C6" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
   <parameter name="AUTO_CLK_RESET_DOMAIN" value="-1" />
@@ -110,27 +109,27 @@
   </generatedFiles>
   <childGeneratedFiles>
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/fft_ofdm_fft_ii_0_opt_twr3.hex"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/fft_ofdm_fft_ii_0_3n128sin.hex"
        type="HEX"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/fft_ofdm_fft_ii_0_opt_twi1.hex"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/fft_ofdm_fft_ii_0_1n128cos.hex"
        type="HEX"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/fft_ofdm_fft_ii_0_opt_twr1.hex"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/fft_ofdm_fft_ii_0_1n128sin.hex"
        type="HEX"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/fft_ofdm_fft_ii_0_opt_twi2.hex"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/fft_ofdm_fft_ii_0_2n128cos.hex"
        type="HEX"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/fft_ofdm_fft_ii_0_opt_twi3.hex"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/fft_ofdm_fft_ii_0_2n128sin.hex"
        type="HEX"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/fft_ofdm_fft_ii_0_opt_twr2.hex"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/fft_ofdm_fft_ii_0_3n128cos.hex"
        type="HEX"
        attributes="" />
    <file
@@ -158,24 +157,56 @@
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/apn_fft_mult_can.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_avalon_streaming_sink.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/apn_fft_mult_cpx_1825.v"
-       type="VERILOG"
-       attributes="" />
-   <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/apn_fft_mult_cpx.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_avalon_streaming_source.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_r22sdf_top.ocp"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_avalon_streaming_controller.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_sglstream.ocp"
        type="OTHER"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/hyper_opt_OFF_pkg.vhd"
-       type="VHDL"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_dualstream.ocp"
+       type="OTHER"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_si_de_so_b.ocp"
+       type="OTHER"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_si_de_so_bb.ocp"
+       type="OTHER"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_si_qe_so_b.ocp"
+       type="OTHER"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_si_qe_so_bb.ocp"
+       type="OTHER"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_si_se_so_b.ocp"
+       type="OTHER"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_si_se_so_bb.ocp"
+       type="OTHER"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_si_so_se_so_b.ocp"
+       type="OTHER"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_si_sose_so_b.ocp"
+       type="OTHER"
        attributes="" />
    <file
        path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/altera_fft_dual_port_ram.vhd"
@@ -206,92 +237,300 @@
        type="SYSTEM_VERILOG"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_r22sdf_lib_pkg.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/fft_pack.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_bit_reverse_addr_control.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/apn_fft_cmult_cpx.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_bit_reverse_core.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/apn_fft_cmult_cpx2.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_bit_reverse_reverse_carry_adder.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/apn_fft_mult_can.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_r22sdf_adder_fp.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/apn_fft_mult_cpx.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_r22sdf_addsub.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_1dp_ram.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_r22sdf_bfi.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_1tdp_rom.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_r22sdf_bfii.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_3dp_rom.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_r22sdf_bf_control.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_3pi_mram.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_r22sdf_cma.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_3tdp_rom.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_r22sdf_cma_adder_fp.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_4dp_ram.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_r22sdf_cma_bfi_fp.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_6tdp_rom.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_r22sdf_cma_fp.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_alt_shift_tdl.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_r22sdf_core.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_bfp_ctrl.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_r22sdf_counter.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_bfp_i.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_r22sdf_delay.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_bfp_i_1pt.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_r22sdf_enable_control.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_bfp_o.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_r22sdf_stage.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_bfp_o_1pt.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_r22sdf_stg_out_pipe.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_burst_ctrl.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_r22sdf_stg_pipe.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_burst_ctrl_de.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_r22sdf_top.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_burst_ctrl_qe.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_r22sdf_twrom.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_cmult_can.vhd"
        type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_cmult_std.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_cnt_ctrl.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_cnt_ctrl_de.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_cxb_addr.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_cxb_data.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_cxb_data_mram.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_cxb_data_r.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_dataadgen.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_data_ram.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_data_ram_dp.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_dft_bfp.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_dft_bfp_sgl.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_dpi_mram.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_dp_mram.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_dualstream.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_in_write_sgl.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_lcm_mult.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_lcm_mult_2m.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_lpp.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_lpprdadgen.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_lpprdadr2gen.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_lpp_serial.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_lpp_serial_r2.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_mult_add.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_m_k_counter.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_pround.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_sglstream.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_si_de_so_b.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_si_de_so_bb.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_si_qe_so_b.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_si_qe_so_bb.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_si_se_so_b.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_si_se_so_bb.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_si_sose_so_b.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_tdl.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_tdl_bit.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_tdl_bit_rst.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_tdl_rst.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_twadgen.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_twadgen_dual.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_twadsogen.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_twadsogen_q.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_twiddle_ctrl_qe.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_twid_rom_tdp.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_unbburst_ctrl.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_unbburst_ctrl_de.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_unbburst_ctrl_qe.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_unbburst_sose_ctrl.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_wrengen.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_wrswgen.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/twid_rom.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/apn_fft_mult_cpx_1825.v"
+       type="VERILOG"
        attributes="" />
    <file
        path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/fft_ofdm_fft_ii_0.sv"
@@ -327,38 +566,38 @@
    <message level="Debug">Transform: ResetAdaptation</message>
    <message level="Debug" culprit="fft_ofdm"><![CDATA["<b>fft_ofdm</b>" reuses <b>altera_fft_ii</b> "<b>submodules/fft_ofdm_fft_ii_0</b>"]]></message>
    <message level="Debug" culprit="fft_ofdm">queue size: 0 starting:altera_fft_ii "submodules/fft_ofdm_fft_ii_0"</message>
-   <message level="Info" culprit="fft_ii_0">--- add file: fft_ofdm_fft_ii_0_opt_twr3.hex</message>
-   <message level="Info" culprit="fft_ii_0">--- add file: fft_ofdm_fft_ii_0_opt_twi1.hex</message>
-   <message level="Info" culprit="fft_ii_0">--- add file: fft_ofdm_fft_ii_0_opt_twr1.hex</message>
-   <message level="Info" culprit="fft_ii_0">--- add file: fft_ofdm_fft_ii_0_opt_twi2.hex</message>
-   <message level="Info" culprit="fft_ii_0">--- add file: fft_ofdm_fft_ii_0_opt_twi3.hex</message>
-   <message level="Info" culprit="fft_ii_0">--- add file: fft_ofdm_fft_ii_0_opt_twr2.hex</message>
+   <message level="Info" culprit="fft_ii_0">--- add file: fft_ofdm_fft_ii_0_3n128sin.hex</message>
+   <message level="Info" culprit="fft_ii_0">--- add file: fft_ofdm_fft_ii_0_1n128cos.hex</message>
+   <message level="Info" culprit="fft_ii_0">--- add file: fft_ofdm_fft_ii_0_1n128sin.hex</message>
+   <message level="Info" culprit="fft_ii_0">--- add file: fft_ofdm_fft_ii_0_2n128cos.hex</message>
+   <message level="Info" culprit="fft_ii_0">--- add file: fft_ofdm_fft_ii_0_2n128sin.hex</message>
+   <message level="Info" culprit="fft_ii_0">--- add file: fft_ofdm_fft_ii_0_3n128cos.hex</message>
    <message level="Info" culprit="fft_ii_0"><![CDATA["<b>fft_ofdm</b>" instantiated <b>altera_fft_ii</b> "<b>fft_ii_0</b>"]]></message>
   </messages>
  </entity>
  <entity
    path="submodules/"
-   parameterizationKey="altera_fft_ii:20.1:CALC_LATENCY=128,THROUGHPUT_LATENCY=128,data_flow=Variable Streaming,data_rep=Fixed Point,design_env=NATIVE,direction=Bi-directional,dsp_resource_opt=false,engine_arch=Quad Output,hard_fp=false,hyper_opt=false,in_order=Natural,in_width=18,in_width_derived=18,length=128,num_engines=1,num_engines_derived=1,out_order=Digit Reverse,out_width=18,out_width_derived=18,selected_device_family=Cyclone V,twid_width=8,twid_width_derived=8"
+   parameterizationKey="altera_fft_ii:20.1:CALC_LATENCY=171,THROUGHPUT_LATENCY=160,data_flow=Buffered Burst,data_rep=Block Floating Point,design_env=NATIVE,direction=Bi-directional,dsp_resource_opt=false,engine_arch=Quad Output,hard_fp=false,hyper_opt=false,in_order=Natural,in_width=18,in_width_derived=18,length=128,num_engines=1,num_engines_derived=1,out_order=Natural,out_width=18,out_width_derived=18,selected_device_family=Cyclone V,twid_width=8,twid_width_derived=8"
    instancePathKey="fft_ofdm:.:fft_ii_0"
    kind="altera_fft_ii"
    version="20.1"
    name="fft_ofdm_fft_ii_0">
-  <parameter name="THROUGHPUT_LATENCY" value="128" />
+  <parameter name="THROUGHPUT_LATENCY" value="160" />
   <parameter name="in_width_derived" value="18" />
   <parameter name="in_order" value="Natural" />
   <parameter name="hyper_opt" value="false" />
   <parameter name="num_engines_derived" value="1" />
   <parameter name="twid_width_derived" value="8" />
   <parameter name="length" value="128" />
-  <parameter name="out_order" value="Digit Reverse" />
+  <parameter name="out_order" value="Natural" />
   <parameter name="selected_device_family" value="Cyclone V" />
   <parameter name="dsp_resource_opt" value="false" />
-  <parameter name="CALC_LATENCY" value="128" />
+  <parameter name="CALC_LATENCY" value="171" />
   <parameter name="design_env" value="NATIVE" />
-  <parameter name="data_rep" value="Fixed Point" />
+  <parameter name="data_rep" value="Block Floating Point" />
   <parameter name="in_width" value="18" />
   <parameter name="engine_arch" value="Quad Output" />
-  <parameter name="data_flow" value="Variable Streaming" />
+  <parameter name="data_flow" value="Buffered Burst" />
   <parameter name="out_width" value="18" />
   <parameter name="num_engines" value="1" />
   <parameter name="out_width_derived" value="18" />
@@ -367,27 +606,27 @@
   <parameter name="direction" value="Bi-directional" />
   <generatedFiles>
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/fft_ofdm_fft_ii_0_opt_twr3.hex"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/fft_ofdm_fft_ii_0_3n128sin.hex"
        type="HEX"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/fft_ofdm_fft_ii_0_opt_twi1.hex"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/fft_ofdm_fft_ii_0_1n128cos.hex"
        type="HEX"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/fft_ofdm_fft_ii_0_opt_twr1.hex"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/fft_ofdm_fft_ii_0_1n128sin.hex"
        type="HEX"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/fft_ofdm_fft_ii_0_opt_twi2.hex"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/fft_ofdm_fft_ii_0_2n128cos.hex"
        type="HEX"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/fft_ofdm_fft_ii_0_opt_twi3.hex"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/fft_ofdm_fft_ii_0_2n128sin.hex"
        type="HEX"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/fft_ofdm_fft_ii_0_opt_twr2.hex"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/fft_ofdm_fft_ii_0_3n128cos.hex"
        type="HEX"
        attributes="" />
    <file
@@ -415,24 +654,56 @@
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/apn_fft_mult_can.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_avalon_streaming_sink.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/apn_fft_mult_cpx_1825.v"
-       type="VERILOG"
-       attributes="" />
-   <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/apn_fft_mult_cpx.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_avalon_streaming_source.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_r22sdf_top.ocp"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_avalon_streaming_controller.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_sglstream.ocp"
        type="OTHER"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/hyper_opt_OFF_pkg.vhd"
-       type="VHDL"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_dualstream.ocp"
+       type="OTHER"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_si_de_so_b.ocp"
+       type="OTHER"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_si_de_so_bb.ocp"
+       type="OTHER"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_si_qe_so_b.ocp"
+       type="OTHER"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_si_qe_so_bb.ocp"
+       type="OTHER"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_si_se_so_b.ocp"
+       type="OTHER"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_si_se_so_bb.ocp"
+       type="OTHER"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_si_so_se_so_b.ocp"
+       type="OTHER"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_si_sose_so_b.ocp"
+       type="OTHER"
        attributes="" />
    <file
        path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/altera_fft_dual_port_ram.vhd"
@@ -463,92 +734,300 @@
        type="SYSTEM_VERILOG"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_r22sdf_lib_pkg.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/fft_pack.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_bit_reverse_addr_control.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/apn_fft_cmult_cpx.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_bit_reverse_core.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/apn_fft_cmult_cpx2.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_bit_reverse_reverse_carry_adder.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/apn_fft_mult_can.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_r22sdf_adder_fp.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/apn_fft_mult_cpx.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_r22sdf_addsub.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_1dp_ram.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_r22sdf_bfi.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_1tdp_rom.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_r22sdf_bfii.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_3dp_rom.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_r22sdf_bf_control.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_3pi_mram.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_r22sdf_cma.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_3tdp_rom.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_r22sdf_cma_adder_fp.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_4dp_ram.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_r22sdf_cma_bfi_fp.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_6tdp_rom.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_r22sdf_cma_fp.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_alt_shift_tdl.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_r22sdf_core.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_bfp_ctrl.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_r22sdf_counter.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_bfp_i.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_r22sdf_delay.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_bfp_i_1pt.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_r22sdf_enable_control.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_bfp_o.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_r22sdf_stage.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_bfp_o_1pt.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_r22sdf_stg_out_pipe.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_burst_ctrl.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_r22sdf_stg_pipe.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_burst_ctrl_de.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_r22sdf_top.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_burst_ctrl_qe.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/auk_dspip_r22sdf_twrom.vhd"
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_cmult_can.vhd"
        type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_cmult_std.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_cnt_ctrl.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_cnt_ctrl_de.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_cxb_addr.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_cxb_data.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_cxb_data_mram.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_cxb_data_r.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_dataadgen.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_data_ram.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_data_ram_dp.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_dft_bfp.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_dft_bfp_sgl.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_dpi_mram.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_dp_mram.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_dualstream.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_in_write_sgl.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_lcm_mult.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_lcm_mult_2m.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_lpp.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_lpprdadgen.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_lpprdadr2gen.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_lpp_serial.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_lpp_serial_r2.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_mult_add.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_m_k_counter.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_pround.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_sglstream.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_si_de_so_b.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_si_de_so_bb.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_si_qe_so_b.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_si_qe_so_bb.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_si_se_so_b.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_si_se_so_bb.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_si_sose_so_b.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_tdl.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_tdl_bit.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_tdl_bit_rst.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_tdl_rst.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_twadgen.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_twadgen_dual.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_twadsogen.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_twadsogen_q.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_twiddle_ctrl_qe.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_twid_rom_tdp.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_unbburst_ctrl.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_unbburst_ctrl_de.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_unbburst_ctrl_qe.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_unbburst_sose_ctrl.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_wrengen.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/asj_fft_wrswgen.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/twid_rom.vhd"
+       type="VHDL"
+       attributes="" />
+   <file
+       path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/apn_fft_mult_cpx_1825.v"
+       type="VERILOG"
        attributes="" />
    <file
        path="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/synthesis/submodules/fft_ofdm_fft_ii_0.sv"
@@ -565,12 +1044,12 @@
   <instantiator instantiator="fft_ofdm" as="fft_ii_0" />
   <messages>
    <message level="Debug" culprit="fft_ofdm">queue size: 0 starting:altera_fft_ii "submodules/fft_ofdm_fft_ii_0"</message>
-   <message level="Info" culprit="fft_ii_0">--- add file: fft_ofdm_fft_ii_0_opt_twr3.hex</message>
-   <message level="Info" culprit="fft_ii_0">--- add file: fft_ofdm_fft_ii_0_opt_twi1.hex</message>
-   <message level="Info" culprit="fft_ii_0">--- add file: fft_ofdm_fft_ii_0_opt_twr1.hex</message>
-   <message level="Info" culprit="fft_ii_0">--- add file: fft_ofdm_fft_ii_0_opt_twi2.hex</message>
-   <message level="Info" culprit="fft_ii_0">--- add file: fft_ofdm_fft_ii_0_opt_twi3.hex</message>
-   <message level="Info" culprit="fft_ii_0">--- add file: fft_ofdm_fft_ii_0_opt_twr2.hex</message>
+   <message level="Info" culprit="fft_ii_0">--- add file: fft_ofdm_fft_ii_0_3n128sin.hex</message>
+   <message level="Info" culprit="fft_ii_0">--- add file: fft_ofdm_fft_ii_0_1n128cos.hex</message>
+   <message level="Info" culprit="fft_ii_0">--- add file: fft_ofdm_fft_ii_0_1n128sin.hex</message>
+   <message level="Info" culprit="fft_ii_0">--- add file: fft_ofdm_fft_ii_0_2n128cos.hex</message>
+   <message level="Info" culprit="fft_ii_0">--- add file: fft_ofdm_fft_ii_0_2n128sin.hex</message>
+   <message level="Info" culprit="fft_ii_0">--- add file: fft_ofdm_fft_ii_0_3n128cos.hex</message>
    <message level="Info" culprit="fft_ii_0"><![CDATA["<b>fft_ofdm</b>" instantiated <b>altera_fft_ii</b> "<b>fft_ii_0</b>"]]></message>
   </messages>
  </entity>

@@ -10,14 +10,14 @@ Progress: Validating
 Progress: Done reading input file
 Info: fft_ofdm.fft_ii_0: Radix-2 digit reverse implied
 Info: fft_ofdm: Generating fft_ofdm "fft_ofdm" for SIM_VHDL
-Info: fft_ii_0: --- add file: fft_ofdm_fft_ii_0_opt_twr3.hex
-Info: fft_ii_0: --- add file: fft_ofdm_fft_ii_0_opt_twi1.hex
-Info: fft_ii_0: --- add file: fft_ofdm_fft_ii_0_opt_twr1.hex
-Info: fft_ii_0: --- add file: fft_ofdm_fft_ii_0_opt_twi2.hex
-Info: fft_ii_0: --- add file: fft_ofdm_fft_ii_0_opt_twi3.hex
-Info: fft_ii_0: --- add file: fft_ofdm_fft_ii_0_opt_twr2.hex
+Info: fft_ii_0: --- add file: fft_ofdm_fft_ii_0_3n128sin.hex
+Info: fft_ii_0: --- add file: fft_ofdm_fft_ii_0_1n128cos.hex
+Info: fft_ii_0: --- add file: fft_ofdm_fft_ii_0_1n128sin.hex
+Info: fft_ii_0: --- add file: fft_ofdm_fft_ii_0_2n128cos.hex
+Info: fft_ii_0: --- add file: fft_ofdm_fft_ii_0_2n128sin.hex
+Info: fft_ii_0: --- add file: fft_ofdm_fft_ii_0_3n128cos.hex
 Info: fft_ii_0: "fft_ofdm" instantiated altera_fft_ii "fft_ii_0"
-Info: fft_ofdm: Done "fft_ofdm" with 2 modules, 136 files
+Info: fft_ofdm: Done "fft_ofdm" with 2 modules, 244 files
 Info: qsys-generate succeeded.
 Info: Finished: Create simulation model
 Info: Starting: Create Modelsim Project.
@@ -54,7 +54,7 @@ Info: qsys-generate succeeded.
 Info: Finished: Create block symbol file (.bsf)
 Info: 
 Info: Starting: Create HDL design files for synthesis
-Info: qsys-generate C:\Plainer_git\ESD3\ofdm\rx_ofdm_vhd\syn\fft_ofdm.qsys --synthesis=VHDL --greybox --output-directory=C:\Plainer_git\ESD3\ofdm\rx_ofdm_vhd\syn\fft_ofdm\synthesis --family="Cyclone V" --part=5CSXFC6D6F31C6
+Info: qsys-generate C:\Plainer_git\ESD3\ofdm\rx_ofdm_vhd\syn\fft_ofdm.qsys --synthesis=VHDL --output-directory=C:\Plainer_git\ESD3\ofdm\rx_ofdm_vhd\syn\fft_ofdm\synthesis --family="Cyclone V" --part=5CSXFC6D6F31C6
 Progress: Loading syn/fft_ofdm.qsys
 Progress: Reading input file
 Progress: Adding fft_ii_0 [altera_fft_ii 20.1]
@@ -65,15 +65,13 @@ Progress: Validating
 Progress: Done reading input file
 Info: fft_ofdm.fft_ii_0: Radix-2 digit reverse implied
 Info: fft_ofdm: Generating fft_ofdm "fft_ofdm" for QUARTUS_SYNTH
-Info: fft_ii_0: --- add file: fft_ofdm_fft_ii_0_opt_twr3.hex
-Info: fft_ii_0: --- add file: fft_ofdm_fft_ii_0_opt_twi1.hex
-Info: fft_ii_0: --- add file: fft_ofdm_fft_ii_0_opt_twr1.hex
-Info: fft_ii_0: --- add file: fft_ofdm_fft_ii_0_opt_twi2.hex
-Info: fft_ii_0: --- add file: fft_ofdm_fft_ii_0_opt_twi3.hex
-Info: fft_ii_0: --- add file: fft_ofdm_fft_ii_0_opt_twr2.hex
+Info: fft_ii_0: --- add file: fft_ofdm_fft_ii_0_3n128sin.hex
+Info: fft_ii_0: --- add file: fft_ofdm_fft_ii_0_1n128cos.hex
+Info: fft_ii_0: --- add file: fft_ofdm_fft_ii_0_1n128sin.hex
+Info: fft_ii_0: --- add file: fft_ofdm_fft_ii_0_2n128cos.hex
+Info: fft_ii_0: --- add file: fft_ofdm_fft_ii_0_2n128sin.hex
+Info: fft_ii_0: --- add file: fft_ofdm_fft_ii_0_3n128cos.hex
 Info: fft_ii_0: "fft_ofdm" instantiated altera_fft_ii "fft_ii_0"
-Info: fft_ofdm: Done "fft_ofdm" with 2 modules, 48 files
-Info: Generating third-party timing and resource estimation model ...
-Info: Done generating third-party timing and resource estimation model.
+Info: fft_ofdm: Done "fft_ofdm" with 2 modules, 108 files
 Info: qsys-generate succeeded.
 Info: Finished: Create HDL design files for synthesis

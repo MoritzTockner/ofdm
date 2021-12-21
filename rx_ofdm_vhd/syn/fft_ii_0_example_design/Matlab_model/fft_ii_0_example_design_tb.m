@@ -15,71 +15,47 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Read transform sizes from source text file
+% Parameterization Space    
 
-fidnps = fopen('../test_data/fft_ii_0_example_design_blksize_report.txt','r');
+N=128;
 
-fidinv = fopen('../test_data/fft_ii_0_example_design_inverse_report.txt','r');
+% Read input complex vector from source text files
 
-% Note: fft_ii_0_example_design_blksize_report.txt is generated when the HDL simulation is run, so if it does
+fidr = fopen('fft_ii_0_example_design_real_input.txt','r');                                            
 
-% not exist then flag an error
+fidi = fopen('fft_ii_0_example_design_imag_input.txt','r');                                           
 
-if fidnps == -1 
+xreali=fscanf(fidr,'%d');                                                    
 
-  msgbox('Error: fft_ii_0_example_design_blksize_report does not exist, run the HDL simulation first.', 'fft_ii_0_example_design_blksize_report.txt missing', 'error');
+ximagi=fscanf(fidi,'%d');                                                    
 
-elseif fidinv == -1 
+fclose(fidi);                                                                  
 
-  msgbox('Error: fft_ii_0_example_design_inverse_report does not exist, run the HDL simulation first.', 'fft_ii_0_example_design_inverse_report.txt missing', 'error');
+fclose(fidr);                                                                
 
-else
+% Create input complex row vector from source text files 
 
-  % Read input complex vector, and transform sizes from source text files 
+x = xreali' + j*ximagi';                                                        
 
-  fidr = fopen('../test_data/fft_ii_0_example_design_real_input.txt','r');                                            
+[y, exp_out] = fft_ii_0_example_design_model(x,N,0); 
 
-  fidi = fopen('../test_data/fft_ii_0_example_design_imag_input.txt','r');
+fidro = fopen('fft_ii_0_example_design_real_output_c_model.txt','w');                                 
 
+fidio = fopen('fft_ii_0_example_design_imag_output_c_model.txt','w');                                  
 
-  xreali=fscanf(fidr,'%d');                                                      
+fideo = fopen('fft_ii_0_example_design_exponent_out_c_model.txt','w');                                 
 
-  ximagi=fscanf(fidi,'%d');
+fprintf(fidro,'%d\n',real(y));                                                
 
+fprintf(fidio,'%d\n',imag(y));                                                
 
-  nps=fscanf(fidnps,'%d');
+fprintf(fideo,'%d\n',exp_out);                                               
 
-  inverse=fscanf(fidinv,'%d'); 
+fclose(fidro);                                                                
 
-  fclose(fidi);                                                                  
+fclose(fidio);                                                              
 
-  fclose(fidr);   
-
-  fclose(fidnps); 
-
-  % Create input complex row vector from source text files 
-
-  x = xreali' + j*ximagi';
-
-  [y] = fft_ii_0_example_design_model(x,nps,inverse); 
-
-  fidro = fopen('fft_ii_0_example_design_real_output_c_model.txt','w');                                  
-
-  fidio = fopen('fft_ii_0_example_design_imag_output_c_model.txt','w');
-
-
-
-    fprintf(fidro,'%d\n',real(y));                                                 
-
-    fprintf(fidio,'%d\n',imag(y));
-
-
-
-  fclose(fidro);                                                                 
-
-  fclose(fidio);
-
-end
+fclose(fideo);                                                                 
 
 
 

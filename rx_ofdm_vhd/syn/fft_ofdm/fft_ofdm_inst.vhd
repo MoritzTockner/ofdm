@@ -9,7 +9,6 @@
 			sink_eop     : in  std_logic                     := 'X';             -- sink_eop
 			sink_real    : in  std_logic_vector(17 downto 0) := (others => 'X'); -- sink_real
 			sink_imag    : in  std_logic_vector(17 downto 0) := (others => 'X'); -- sink_imag
-			fftpts_in    : in  std_logic_vector(7 downto 0)  := (others => 'X'); -- fftpts_in
 			inverse      : in  std_logic_vector(0 downto 0)  := (others => 'X'); -- inverse
 			source_valid : out std_logic;                                        -- source_valid
 			source_ready : in  std_logic                     := 'X';             -- source_ready
@@ -18,7 +17,7 @@
 			source_eop   : out std_logic;                                        -- source_eop
 			source_real  : out std_logic_vector(17 downto 0);                    -- source_real
 			source_imag  : out std_logic_vector(17 downto 0);                    -- source_imag
-			fftpts_out   : out std_logic_vector(7 downto 0)                      -- fftpts_out
+			source_exp   : out std_logic_vector(5 downto 0)                      -- source_exp
 		);
 	end component fft_ofdm;
 
@@ -33,7 +32,6 @@
 			sink_eop     => CONNECTED_TO_sink_eop,     --       .sink_eop
 			sink_real    => CONNECTED_TO_sink_real,    --       .sink_real
 			sink_imag    => CONNECTED_TO_sink_imag,    --       .sink_imag
-			fftpts_in    => CONNECTED_TO_fftpts_in,    --       .fftpts_in
 			inverse      => CONNECTED_TO_inverse,      --       .inverse
 			source_valid => CONNECTED_TO_source_valid, -- source.source_valid
 			source_ready => CONNECTED_TO_source_ready, --       .source_ready
@@ -42,6 +40,6 @@
 			source_eop   => CONNECTED_TO_source_eop,   --       .source_eop
 			source_real  => CONNECTED_TO_source_real,  --       .source_real
 			source_imag  => CONNECTED_TO_source_imag,  --       .source_imag
-			fftpts_out   => CONNECTED_TO_fftpts_out    --       .fftpts_out
+			source_exp   => CONNECTED_TO_source_exp    --       .source_exp
 		);
 

@@ -7,13 +7,13 @@ module fft_ii_0_example_design_tb (
 	);
 
 	wire         fft_ii_0_example_design_inst_core_source_valid;               // fft_ii_0_example_design_inst:core_source_valid -> fft_ii_0_example_design_inst_core_source_bfm:sink_valid
-	wire  [31:0] fft_ii_0_example_design_inst_core_source_data;                // fft_ii_0_example_design_inst:core_source_data -> fft_ii_0_example_design_inst_core_source_bfm:sink_data
+	wire  [41:0] fft_ii_0_example_design_inst_core_source_data;                // fft_ii_0_example_design_inst:core_source_data -> fft_ii_0_example_design_inst_core_source_bfm:sink_data
 	wire         fft_ii_0_example_design_inst_core_source_ready;               // fft_ii_0_example_design_inst_core_source_bfm:sink_ready -> fft_ii_0_example_design_inst:core_source_ready
 	wire         fft_ii_0_example_design_inst_core_source_startofpacket;       // fft_ii_0_example_design_inst:core_source_startofpacket -> fft_ii_0_example_design_inst_core_source_bfm:sink_startofpacket
 	wire   [1:0] fft_ii_0_example_design_inst_core_source_error;               // fft_ii_0_example_design_inst:core_source_error -> fft_ii_0_example_design_inst_core_source_bfm:sink_error
 	wire         fft_ii_0_example_design_inst_core_source_endofpacket;         // fft_ii_0_example_design_inst:core_source_endofpacket -> fft_ii_0_example_design_inst_core_source_bfm:sink_endofpacket
 	wire   [0:0] fft_ii_0_example_design_inst_core_sink_bfm_src_valid;         // fft_ii_0_example_design_inst_core_sink_bfm:src_valid -> fft_ii_0_example_design_inst:core_sink_valid
-	wire  [32:0] fft_ii_0_example_design_inst_core_sink_bfm_src_data;          // fft_ii_0_example_design_inst_core_sink_bfm:src_data -> fft_ii_0_example_design_inst:core_sink_data
+	wire  [36:0] fft_ii_0_example_design_inst_core_sink_bfm_src_data;          // fft_ii_0_example_design_inst_core_sink_bfm:src_data -> fft_ii_0_example_design_inst:core_sink_data
 	wire         fft_ii_0_example_design_inst_core_sink_bfm_src_ready;         // fft_ii_0_example_design_inst:core_sink_ready -> fft_ii_0_example_design_inst_core_sink_bfm:src_ready
 	wire   [0:0] fft_ii_0_example_design_inst_core_sink_bfm_src_startofpacket; // fft_ii_0_example_design_inst_core_sink_bfm:src_startofpacket -> fft_ii_0_example_design_inst:core_sink_startofpacket
 	wire   [0:0] fft_ii_0_example_design_inst_core_sink_bfm_src_endofpacket;   // fft_ii_0_example_design_inst_core_sink_bfm:src_endofpacket -> fft_ii_0_example_design_inst:core_sink_endofpacket
@@ -60,7 +60,7 @@ module fft_ii_0_example_design_tb (
 		.USE_READY        (1),
 		.USE_VALID        (1),
 		.USE_EMPTY        (0),
-		.ST_SYMBOL_W      (33),
+		.ST_SYMBOL_W      (37),
 		.ST_NUMSYMBOLS    (1),
 		.ST_CHANNEL_W     (1),
 		.ST_ERROR_W       (2),
@@ -89,7 +89,7 @@ module fft_ii_0_example_design_tb (
 		.USE_READY        (1),
 		.USE_VALID        (1),
 		.USE_EMPTY        (0),
-		.ST_SYMBOL_W      (32),
+		.ST_SYMBOL_W      (42),
 		.ST_NUMSYMBOLS    (1),
 		.ST_CHANNEL_W     (1),
 		.ST_ERROR_W       (2),

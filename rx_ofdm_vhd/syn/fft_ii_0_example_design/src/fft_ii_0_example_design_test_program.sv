@@ -41,11 +41,11 @@ import verbosity_pkg::*;
 `define OUT_LATENCY_FILE "fft_ii_0_example_design_latency_report.txt" // Exponent component of output data, formatted as integers used only for Block Floating point
 `define IN_BLK_FILE "fft_ii_0_example_design_blksize_report.txt" // List of block sizes used in variable sized ffts, 1 per line formated as an integer
 `define IN_INV_FILE "fft_ii_0_example_design_inverse_report.txt"// List of directions for FFT in bi-directional mode, 1 per line formated as an integer
-`define DATA_REPRESENTATION "Fixed Point" //Fixed or Float or Block Float
-`define B_IN 12 //32 for SINGLE precision Float
-`define B_OUT 12 //32 for SINGLE precision Float
+`define DATA_REPRESENTATION "Block Floating Point" //Fixed or Float or Block Float
+`define B_IN 18 //32 for SINGLE precision Float
+`define B_OUT 18 //32 for SINGLE precision Float
 `define DIRECTION "Bi-directional" // Reverse or Forward or Bi-directional
-`define DATA_FLOW "Variable Streaming" // Buffered Burst or Burst or Streaming or Variable Streaming
+`define DATA_FLOW "Buffered Burst" // Buffered Burst or Burst or Streaming or Variable Streaming
 `define FFT_LENGTH 128 //Max for variable size
 
 `timescale 1ns/1ps

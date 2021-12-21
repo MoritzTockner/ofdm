@@ -94,7 +94,7 @@
 # within the Quartus project, and generate a unified
 # script which supports all the Altera IP within the design.
 # ----------------------------------------
-# ACDS 20.1 720 win32 2021.12.20.20:14:18
+# ACDS 20.1 720 win32 2021.12.21.15:43:01
 
 # ----------------------------------------
 # Initialize variables
@@ -141,13 +141,12 @@ if ![ string match "*-64 vsim*" [ vsim -version ] ] {
 # Copy ROM/RAM files to simulation directory
 alias file_copy {
   echo "\[exec\] file_copy"
-  file copy -force $QSYS_SIMDIR/../src/fft_ii_0_example_design_core_opt_twi1.hex ./
-  file copy -force $QSYS_SIMDIR/../src/fft_ii_0_example_design_core_opt_twi2.hex ./
-  file copy -force $QSYS_SIMDIR/../src/fft_ii_0_example_design_core_opt_twi3.hex ./
-  file copy -force $QSYS_SIMDIR/../src/fft_ii_0_example_design_core_opt_twr1.hex ./
-  file copy -force $QSYS_SIMDIR/../src/fft_ii_0_example_design_core_opt_twr2.hex ./
-  file copy -force $QSYS_SIMDIR/../src/fft_ii_0_example_design_core_opt_twr3.hex ./
-  file copy -force $QSYS_SIMDIR/../test_data/fft_ii_0_example_design_blksize_report.txt ./
+  file copy -force $QSYS_SIMDIR/../src/fft_ii_0_example_design_core_1n128cos.hex ./
+  file copy -force $QSYS_SIMDIR/../src/fft_ii_0_example_design_core_1n128sin.hex ./
+  file copy -force $QSYS_SIMDIR/../src/fft_ii_0_example_design_core_2n128cos.hex ./
+  file copy -force $QSYS_SIMDIR/../src/fft_ii_0_example_design_core_2n128sin.hex ./
+  file copy -force $QSYS_SIMDIR/../src/fft_ii_0_example_design_core_3n128cos.hex ./
+  file copy -force $QSYS_SIMDIR/../src/fft_ii_0_example_design_core_3n128sin.hex ./
   file copy -force $QSYS_SIMDIR/../test_data/fft_ii_0_example_design_imag_input.txt ./
   file copy -force $QSYS_SIMDIR/../test_data/fft_ii_0_example_design_inverse_report.txt ./
   file copy -force $QSYS_SIMDIR/../test_data/fft_ii_0_example_design_real_input.txt ./
@@ -235,55 +234,106 @@ alias dev_com {
 # Compile the design files in correct order
 alias com {
   echo "\[exec\] com"
-  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/auk_dspip_text_pkg.vhd"                               -work work
-  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/auk_dspip_math_pkg.vhd"                               -work work
-  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/auk_dspip_lib_pkg.vhd"                                -work work
-  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/auk_dspip_avalon_streaming_block_sink.vhd"     -work work
-  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/auk_dspip_avalon_streaming_block_source.vhd"   -work work
-  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/auk_dspip_roundsat.vhd"                               -work work
-  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/apn_fft_mult_can.vhd"                          -work work
-  eval  vlog $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS     "$QSYS_SIMDIR/../src/mentor/apn_fft_mult_cpx_1825.v"                       -work work
-  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/apn_fft_mult_cpx.vhd"                          -work work
-  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/hyper_opt_OFF_pkg.vhd"                         -work work
-  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/altera_fft_dual_port_ram.vhd"                  -work work
-  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/altera_fft_dual_port_rom.vhd"                  -work work
-  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/altera_fft_mult_add.vhd"                       -work work
-  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/altera_fft_single_port_rom.vhd"                -work work
-  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/auk_fft_pkg.vhd"                               -work work
-  eval  vlog $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS     "$QSYS_SIMDIR/../src/mentor/hyper_pipeline_interface.v"                    -work work
-  eval  vlog -sv $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/../src/mentor/counter_module.sv"                             -work work
-  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/auk_dspip_r22sdf_lib_pkg.vhd"                  -work work
-  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/auk_dspip_bit_reverse_addr_control.vhd"        -work work
-  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/auk_dspip_bit_reverse_core.vhd"                -work work
-  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/auk_dspip_bit_reverse_reverse_carry_adder.vhd" -work work
-  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/auk_dspip_r22sdf_adder_fp.vhd"                 -work work
-  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/auk_dspip_r22sdf_addsub.vhd"                   -work work
-  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/auk_dspip_r22sdf_bfi.vhd"                      -work work
-  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/auk_dspip_r22sdf_bfii.vhd"                     -work work
-  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/auk_dspip_r22sdf_bf_control.vhd"               -work work
-  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/auk_dspip_r22sdf_cma.vhd"                      -work work
-  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/auk_dspip_r22sdf_cma_adder_fp.vhd"             -work work
-  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/auk_dspip_r22sdf_cma_bfi_fp.vhd"               -work work
-  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/auk_dspip_r22sdf_cma_fp.vhd"                   -work work
-  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/auk_dspip_r22sdf_core.vhd"                     -work work
-  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/auk_dspip_r22sdf_counter.vhd"                  -work work
-  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/auk_dspip_r22sdf_delay.vhd"                    -work work
-  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/auk_dspip_r22sdf_enable_control.vhd"           -work work
-  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/auk_dspip_r22sdf_stage.vhd"                    -work work
-  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/auk_dspip_r22sdf_stg_out_pipe.vhd"             -work work
-  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/auk_dspip_r22sdf_stg_pipe.vhd"                 -work work
-  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/auk_dspip_r22sdf_top.vhd"                      -work work
-  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/auk_dspip_r22sdf_twrom.vhd"                    -work work
-  eval  vlog -sv $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/../src/avalon_utilities_pkg.sv"                              -work work
-  eval  vlog -sv $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/../src/verbosity_pkg.sv"                                     -work work
-  eval  vlog -sv $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/../src/altera_avalon_clock_source.sv"                        -work work
-  eval  vlog -sv $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/../src/altera_avalon_reset_source.sv"                        -work work
-  eval  vlog -sv $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/../src/altera_avalon_st_sink_bfm.sv"                         -work work
-  eval  vlog -sv $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/../src/altera_avalon_st_source_bfm.sv"                       -work work
-  eval  vlog $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS     "$QSYS_SIMDIR/../src/fft_ii_0_example_design.v"                            -work work
-  eval  vlog -sv $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/../src/fft_ii_0_example_design_core.sv"                      -work work
-  eval  vlog $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS     "$QSYS_SIMDIR/../src/fft_ii_0_example_design_tb.v"                         -work work
-  eval  vlog -sv $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/../src/fft_ii_0_example_design_test_program.sv"              -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/auk_dspip_text_pkg.vhd"                             -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/auk_dspip_math_pkg.vhd"                             -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/auk_dspip_lib_pkg.vhd"                              -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/auk_dspip_avalon_streaming_block_sink.vhd"   -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/auk_dspip_avalon_streaming_block_source.vhd" -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/auk_dspip_roundsat.vhd"                             -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/auk_dspip_avalon_streaming_sink.vhd"                -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/auk_dspip_avalon_streaming_source.vhd"              -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/auk_dspip_avalon_streaming_controller.vhd"          -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/altera_fft_dual_port_ram.vhd"                -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/altera_fft_dual_port_rom.vhd"                -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/altera_fft_mult_add.vhd"                     -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/altera_fft_single_port_rom.vhd"              -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/auk_fft_pkg.vhd"                             -work work
+  eval  vlog $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS     "$QSYS_SIMDIR/../src/mentor/hyper_pipeline_interface.v"                  -work work
+  eval  vlog -sv $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/../src/mentor/counter_module.sv"                           -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/fft_pack.vhd"                                -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/apn_fft_cmult_cpx.vhd"                       -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/apn_fft_cmult_cpx2.vhd"                      -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/apn_fft_mult_can.vhd"                        -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/apn_fft_mult_cpx.vhd"                        -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_1dp_ram.vhd"                         -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_1tdp_rom.vhd"                        -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_3dp_rom.vhd"                         -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_3pi_mram.vhd"                        -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_3tdp_rom.vhd"                        -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_4dp_ram.vhd"                         -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_6tdp_rom.vhd"                        -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_alt_shift_tdl.vhd"                   -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_bfp_ctrl.vhd"                        -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_bfp_i.vhd"                           -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_bfp_i_1pt.vhd"                       -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_bfp_o.vhd"                           -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_bfp_o_1pt.vhd"                       -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_burst_ctrl.vhd"                      -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_burst_ctrl_de.vhd"                   -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_burst_ctrl_qe.vhd"                   -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_cmult_can.vhd"                       -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_cmult_std.vhd"                       -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_cnt_ctrl.vhd"                        -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_cnt_ctrl_de.vhd"                     -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_cxb_addr.vhd"                        -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_cxb_data.vhd"                        -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_cxb_data_mram.vhd"                   -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_cxb_data_r.vhd"                      -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_dataadgen.vhd"                       -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_data_ram.vhd"                        -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_data_ram_dp.vhd"                     -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_dft_bfp.vhd"                         -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_dft_bfp_sgl.vhd"                     -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_dpi_mram.vhd"                        -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_dp_mram.vhd"                         -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_dualstream.vhd"                      -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_in_write_sgl.vhd"                    -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_lcm_mult.vhd"                        -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_lcm_mult_2m.vhd"                     -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_lpp.vhd"                             -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_lpprdadgen.vhd"                      -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_lpprdadr2gen.vhd"                    -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_lpp_serial.vhd"                      -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_lpp_serial_r2.vhd"                   -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_mult_add.vhd"                        -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_m_k_counter.vhd"                     -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_pround.vhd"                          -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_sglstream.vhd"                       -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_si_de_so_b.vhd"                      -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_si_de_so_bb.vhd"                     -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_si_qe_so_b.vhd"                      -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_si_qe_so_bb.vhd"                     -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_si_se_so_b.vhd"                      -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_si_se_so_bb.vhd"                     -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_si_sose_so_b.vhd"                    -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_tdl.vhd"                             -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_tdl_bit.vhd"                         -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_tdl_bit_rst.vhd"                     -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_tdl_rst.vhd"                         -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_twadgen.vhd"                         -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_twadgen_dual.vhd"                    -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_twadsogen.vhd"                       -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_twadsogen_q.vhd"                     -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_twiddle_ctrl_qe.vhd"                 -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_twid_rom_tdp.vhd"                    -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_unbburst_ctrl.vhd"                   -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_unbburst_ctrl_de.vhd"                -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_unbburst_ctrl_qe.vhd"                -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_unbburst_sose_ctrl.vhd"              -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_wrengen.vhd"                         -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/asj_fft_wrswgen.vhd"                         -work work
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/../src/mentor/twid_rom.vhd"                                -work work
+  eval  vlog $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS     "$QSYS_SIMDIR/../src/mentor/apn_fft_mult_cpx_1825.v"                     -work work
+  eval  vlog -sv $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/../src/avalon_utilities_pkg.sv"                            -work work
+  eval  vlog -sv $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/../src/verbosity_pkg.sv"                                   -work work
+  eval  vlog -sv $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/../src/altera_avalon_clock_source.sv"                      -work work
+  eval  vlog -sv $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/../src/altera_avalon_reset_source.sv"                      -work work
+  eval  vlog -sv $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/../src/altera_avalon_st_sink_bfm.sv"                       -work work
+  eval  vlog -sv $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/../src/altera_avalon_st_source_bfm.sv"                     -work work
+  eval  vlog $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS     "$QSYS_SIMDIR/../src/fft_ii_0_example_design.v"                          -work work
+  eval  vlog -sv $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/../src/fft_ii_0_example_design_core.sv"                    -work work
+  eval  vlog $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS     "$QSYS_SIMDIR/../src/fft_ii_0_example_design_tb.v"                       -work work
+  eval  vlog -sv $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/../src/fft_ii_0_example_design_test_program.sv"            -work work
 }
 
 # ----------------------------------------

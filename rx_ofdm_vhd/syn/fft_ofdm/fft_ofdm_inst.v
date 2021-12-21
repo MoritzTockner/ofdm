@@ -8,7 +8,6 @@
 		.sink_eop     (<connected-to-sink_eop>),     //       .sink_eop
 		.sink_real    (<connected-to-sink_real>),    //       .sink_real
 		.sink_imag    (<connected-to-sink_imag>),    //       .sink_imag
-		.fftpts_in    (<connected-to-fftpts_in>),    //       .fftpts_in
 		.inverse      (<connected-to-inverse>),      //       .inverse
 		.source_valid (<connected-to-source_valid>), // source.source_valid
 		.source_ready (<connected-to-source_ready>), //       .source_ready
@@ -17,6 +16,6 @@
 		.source_eop   (<connected-to-source_eop>),   //       .source_eop
 		.source_real  (<connected-to-source_real>),  //       .source_real
 		.source_imag  (<connected-to-source_imag>),  //       .source_imag
-		.fftpts_out   (<connected-to-fftpts_out>)    //       .fftpts_out
+		.source_exp   (<connected-to-source_exp>)    //       .source_exp
 	);
 

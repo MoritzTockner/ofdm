@@ -9,7 +9,6 @@ module fft_ofdm (
 	sink_eop,
 	sink_real,
 	sink_imag,
-	fftpts_in,
 	inverse,
 	source_valid,
 	source_ready,
@@ -18,7 +17,7 @@ module fft_ofdm (
 	source_eop,
 	source_real,
 	source_imag,
-	fftpts_out);	
+	source_exp);	
 
 	input		clk;
 	input		reset_n;
@@ -29,7 +28,6 @@ module fft_ofdm (
 	input		sink_eop;
 	input	[17:0]	sink_real;
 	input	[17:0]	sink_imag;
-	input	[7:0]	fftpts_in;
 	input	[0:0]	inverse;
 	output		source_valid;
 	input		source_ready;
@@ -38,5 +36,5 @@ module fft_ofdm (
 	output		source_eop;
 	output	[17:0]	source_real;
 	output	[17:0]	source_imag;
-	output	[7:0]	fftpts_out;
+	output	[5:0]	source_exp;
 endmodule
