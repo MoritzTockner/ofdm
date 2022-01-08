@@ -30,7 +30,7 @@ HAL/
 *.map
 *.elf
 *.objdump
-*.rpt
+
 work/
 
 

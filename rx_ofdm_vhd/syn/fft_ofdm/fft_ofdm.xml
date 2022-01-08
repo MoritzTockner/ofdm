@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <deploy
- date="2021.12.21.15:41:57"
+ date="2021.12.22.09:13:26"
  outputDirectory="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/">
  <perimeter>
   <parameter
@@ -89,13 +89,13 @@
  </perimeter>
  <entity
    path=""
-   parameterizationKey="fft_ofdm:1.0:AUTO_CLK_CLOCK_DOMAIN=-1,AUTO_CLK_CLOCK_RATE=-1,AUTO_CLK_RESET_DOMAIN=-1,AUTO_DEVICE=5CSXFC6D6F31C6,AUTO_DEVICE_FAMILY=Cyclone V,AUTO_DEVICE_SPEEDGRADE=6_H6,AUTO_GENERATION_ID=1640097715,AUTO_UNIQUE_ID=(altera_fft_ii:20.1:CALC_LATENCY=171,THROUGHPUT_LATENCY=160,data_flow=Buffered Burst,data_rep=Block Floating Point,design_env=NATIVE,direction=Bi-directional,dsp_resource_opt=false,engine_arch=Quad Output,hard_fp=false,hyper_opt=false,in_order=Natural,in_width=18,in_width_derived=18,length=128,num_engines=1,num_engines_derived=1,out_order=Natural,out_width=18,out_width_derived=18,selected_device_family=Cyclone V,twid_width=8,twid_width_derived=8)"
+   parameterizationKey="fft_ofdm:1.0:AUTO_CLK_CLOCK_DOMAIN=-1,AUTO_CLK_CLOCK_RATE=-1,AUTO_CLK_RESET_DOMAIN=-1,AUTO_DEVICE=5CSXFC6D6F31C6,AUTO_DEVICE_FAMILY=Cyclone V,AUTO_DEVICE_SPEEDGRADE=6_H6,AUTO_GENERATION_ID=1640160805,AUTO_UNIQUE_ID=(altera_fft_ii:20.1:CALC_LATENCY=423,THROUGHPUT_LATENCY=166,data_flow=Burst,data_rep=Block Floating Point,design_env=NATIVE,direction=Bi-directional,dsp_resource_opt=false,engine_arch=Single Output,hard_fp=false,hyper_opt=false,in_order=Natural,in_width=18,in_width_derived=18,length=128,num_engines=1,num_engines_derived=1,out_order=Natural,out_width=18,out_width_derived=18,selected_device_family=Cyclone V,twid_width=8,twid_width_derived=8)"
    instancePathKey="fft_ofdm"
    kind="fft_ofdm"
    version="1.0"
    name="fft_ofdm">
   <parameter name="AUTO_CLK_CLOCK_RATE" value="-1" />
-  <parameter name="AUTO_GENERATION_ID" value="1640097715" />
+  <parameter name="AUTO_GENERATION_ID" value="1640160805" />
   <parameter name="AUTO_DEVICE" value="5CSXFC6D6F31C6" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
   <parameter name="AUTO_CLK_RESET_DOMAIN" value="-1" />
@@ -577,12 +577,12 @@
  </entity>
  <entity
    path="submodules/"
-   parameterizationKey="altera_fft_ii:20.1:CALC_LATENCY=171,THROUGHPUT_LATENCY=160,data_flow=Buffered Burst,data_rep=Block Floating Point,design_env=NATIVE,direction=Bi-directional,dsp_resource_opt=false,engine_arch=Quad Output,hard_fp=false,hyper_opt=false,in_order=Natural,in_width=18,in_width_derived=18,length=128,num_engines=1,num_engines_derived=1,out_order=Natural,out_width=18,out_width_derived=18,selected_device_family=Cyclone V,twid_width=8,twid_width_derived=8"
+   parameterizationKey="altera_fft_ii:20.1:CALC_LATENCY=423,THROUGHPUT_LATENCY=166,data_flow=Burst,data_rep=Block Floating Point,design_env=NATIVE,direction=Bi-directional,dsp_resource_opt=false,engine_arch=Single Output,hard_fp=false,hyper_opt=false,in_order=Natural,in_width=18,in_width_derived=18,length=128,num_engines=1,num_engines_derived=1,out_order=Natural,out_width=18,out_width_derived=18,selected_device_family=Cyclone V,twid_width=8,twid_width_derived=8"
    instancePathKey="fft_ofdm:.:fft_ii_0"
    kind="altera_fft_ii"
    version="20.1"
    name="fft_ofdm_fft_ii_0">
-  <parameter name="THROUGHPUT_LATENCY" value="160" />
+  <parameter name="THROUGHPUT_LATENCY" value="166" />
   <parameter name="in_width_derived" value="18" />
   <parameter name="in_order" value="Natural" />
   <parameter name="hyper_opt" value="false" />
@@ -592,12 +592,12 @@
   <parameter name="out_order" value="Natural" />
   <parameter name="selected_device_family" value="Cyclone V" />
   <parameter name="dsp_resource_opt" value="false" />
-  <parameter name="CALC_LATENCY" value="171" />
+  <parameter name="CALC_LATENCY" value="423" />
   <parameter name="design_env" value="NATIVE" />
   <parameter name="data_rep" value="Block Floating Point" />
   <parameter name="in_width" value="18" />
-  <parameter name="engine_arch" value="Quad Output" />
-  <parameter name="data_flow" value="Buffered Burst" />
+  <parameter name="engine_arch" value="Single Output" />
+  <parameter name="data_flow" value="Burst" />
   <parameter name="out_width" value="18" />
   <parameter name="num_engines" value="1" />
   <parameter name="out_width_derived" value="18" />
