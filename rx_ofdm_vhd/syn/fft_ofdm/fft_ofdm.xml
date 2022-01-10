@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <deploy
- date="2021.12.22.09:13:26"
+ date="2022.01.10.23:26:42"
  outputDirectory="C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/">
  <perimeter>
   <parameter
@@ -89,13 +89,13 @@
  </perimeter>
  <entity
    path=""
-   parameterizationKey="fft_ofdm:1.0:AUTO_CLK_CLOCK_DOMAIN=-1,AUTO_CLK_CLOCK_RATE=-1,AUTO_CLK_RESET_DOMAIN=-1,AUTO_DEVICE=5CSXFC6D6F31C6,AUTO_DEVICE_FAMILY=Cyclone V,AUTO_DEVICE_SPEEDGRADE=6_H6,AUTO_GENERATION_ID=1640160805,AUTO_UNIQUE_ID=(altera_fft_ii:20.1:CALC_LATENCY=423,THROUGHPUT_LATENCY=166,data_flow=Burst,data_rep=Block Floating Point,design_env=NATIVE,direction=Bi-directional,dsp_resource_opt=false,engine_arch=Single Output,hard_fp=false,hyper_opt=false,in_order=Natural,in_width=18,in_width_derived=18,length=128,num_engines=1,num_engines_derived=1,out_order=Natural,out_width=18,out_width_derived=18,selected_device_family=Cyclone V,twid_width=8,twid_width_derived=8)"
+   parameterizationKey="fft_ofdm:1.0:AUTO_CLK_CLOCK_DOMAIN=-1,AUTO_CLK_CLOCK_RATE=-1,AUTO_CLK_RESET_DOMAIN=-1,AUTO_DEVICE=5CSXFC6D6F31C6,AUTO_DEVICE_FAMILY=Cyclone V,AUTO_DEVICE_SPEEDGRADE=6_H6,AUTO_GENERATION_ID=1641853600,AUTO_UNIQUE_ID=(altera_fft_ii:20.1:CALC_LATENCY=423,THROUGHPUT_LATENCY=166,data_flow=Burst,data_rep=Block Floating Point,design_env=NATIVE,direction=Bi-directional,dsp_resource_opt=false,engine_arch=Single Output,hard_fp=false,hyper_opt=false,in_order=Natural,in_width=18,in_width_derived=18,length=128,num_engines=1,num_engines_derived=1,out_order=Natural,out_width=18,out_width_derived=18,selected_device_family=Cyclone V,twid_width=8,twid_width_derived=8)"
    instancePathKey="fft_ofdm"
    kind="fft_ofdm"
    version="1.0"
    name="fft_ofdm">
   <parameter name="AUTO_CLK_CLOCK_RATE" value="-1" />
-  <parameter name="AUTO_GENERATION_ID" value="1640160805" />
+  <parameter name="AUTO_GENERATION_ID" value="1641853600" />
   <parameter name="AUTO_DEVICE" value="5CSXFC6D6F31C6" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
   <parameter name="AUTO_CLK_RESET_DOMAIN" value="-1" />
