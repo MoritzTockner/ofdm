@@ -34,7 +34,7 @@ vcom ../syn/fft_ofdm/testbench/fft_ofdm_tb/simulation/fft_ofdm_tb.vhd
 # Set the top-level simulation or testbench module/entity name, which is
 # used by the elab command to elaborate the top level.
 #
-set TOP_LEVEL_NAME fft_ofdm_tb
+#set TOP_LEVEL_NAME fft_ofdm_tb
 #
 # Set any elaboration options you require.
 #set USER_DEFINED_ELAB_OPTIONS <elaboration options>
