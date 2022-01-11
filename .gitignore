@@ -42,7 +42,7 @@ mem_init/
 
 *~
 
-simulation/
+#simulation/
 nios_system/
 nios_system
 bsp/
