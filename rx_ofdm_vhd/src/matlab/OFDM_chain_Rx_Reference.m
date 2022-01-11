@@ -186,6 +186,9 @@ for k=1:nr_symbols
         N_fft = NumberOfSubcarrier;
         RxChips = RxChips*pow2(11);  % change format from s1.11 to s12.0
         RxChips = RxChips.';         % change to row vector for fft model
+
+        RxChipsScaled = writeToHIL(RxChips.', 'fft_in', '../../sim/');
+
         [RxModSymbolsVDHLBase, RxModSymbolsVDHLExponent] = fft_ii_0_example_design_model(RxChips, N_fft, 0); 
         RxModSymbolsVDHLBase = RxModSymbolsVDHLBase(digit_reverse(0:(N_fft-1), log2(N_fft)) + 1); % undo bit reverse from FFT VHDL model
         RxModSymbolsVDHLBase = RxModSymbolsVDHLBase.';
