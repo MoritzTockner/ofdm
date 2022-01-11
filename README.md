@@ -1,5 +1,6 @@
 # ofdm
 
 ## Hardware Resources
-* Data Input/Output width: 18 Bits
-* Twiddle width: 8 Bits (less are not possible for IP core)
+* Data Input/Output width: 12 Bits
+* Twiddle width: 14 Bits 
+* Leads to EVM ~= 8.5%
