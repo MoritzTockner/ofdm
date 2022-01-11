@@ -83,7 +83,7 @@ architecture rtl of fft_ofdm_tb is
       );
   end component altera_conduit_bfm_0002;
 
-  signal fft_ofdm_inst_clk_bfm_clk_clk                 : std_logic := '1';  -- fft_ofdm_inst_clk_bfm:clk -> [fft_ofdm_inst:clk, fft_ofdm_inst_rst_bfm:clk, fft_ofdm_inst_sink_bfm:clk, fft_ofdm_inst_source_bfm:clk]
+  signal fft_ofdm_inst_clk_bfm_clk_clk                 : std_logic := '0';  -- fft_ofdm_inst_clk_bfm:clk -> [fft_ofdm_inst:clk, fft_ofdm_inst_rst_bfm:clk, fft_ofdm_inst_sink_bfm:clk, fft_ofdm_inst_source_bfm:clk]
   signal fft_ofdm_inst_sink_bfm_conduit_sink_error     : std_logic_vector(1 downto 0);  -- fft_ofdm_inst_sink_bfm:sig_sink_error -> fft_ofdm_inst:sink_error
   signal fft_ofdm_inst_sink_bfm_conduit_inverse        : std_logic_vector(0 downto 0);  -- fft_ofdm_inst_sink_bfm:sig_inverse -> fft_ofdm_inst:inverse
   signal fft_ofdm_inst_sink_bfm_conduit_sink_eop       : std_logic_vector(0 downto 0);  -- fft_ofdm_inst_sink_bfm:sig_sink_eop -> fft_ofdm_inst:sink_eop
@@ -129,7 +129,7 @@ begin
 
   fft_ofdm_inst_clk_bfm : component altera_avalon_clock_source
     generic map (
-      CLOCK_RATE => 80000000,
+      CLOCK_RATE => 500000000,
       CLOCK_UNIT => 1
       )
     port map (
@@ -170,56 +170,15 @@ begin
   Stimuli : process
   begin  -- process Stimuli
 
-    wait for 6.25 ns;
-    wait for 50*12.5 ns; -- reset
+    wait for 1 ns;
+    wait for 20 ns;
+    fft_ofdm_inst_sink_bfm_conduit_sink_valid <= "0";
+
     fft_ofdm_inst_sink_bfm_conduit_sink_sop       <= "0";
     fft_ofdm_inst_sink_bfm_conduit_sink_eop       <= "0";
     fft_ofdm_inst_sink_bfm_conduit_sink_imag      <= (others => '0');
     fft_ofdm_inst_sink_bfm_conduit_sink_real      <= (others => '0');
-    fft_ofdm_inst_sink_bfm_conduit_sink_valid <= "0";
-    fft_ofdm_inst_source_bfm_conduit_source_ready <= "1";
-    for k in 0 to 26 loop
-      wait for 40*16*12.5 ns; -- sync
-
-      fft_ofdm_inst_sink_bfm_conduit_sink_sop       <= "1";
-      fft_ofdm_inst_sink_bfm_conduit_sink_valid       <= "1";
-      wait for 12.5 ns;
-      fft_ofdm_inst_sink_bfm_conduit_sink_sop       <= "0";
-      fft_ofdm_inst_sink_bfm_conduit_sink_valid       <= "0";
-      wait for (40-1) * 12.5 ns;
-      
-      for n in 0 to 128-1-2 loop-- 127-2 loop
-        fft_ofdm_inst_sink_bfm_conduit_sink_valid <= "1";
-        wait for 12.5 ns;
-        fft_ofdm_inst_sink_bfm_conduit_sink_valid <= "0";
-        wait for (40-1) * 12.5 ns;
-      end loop;
-
-      fft_ofdm_inst_sink_bfm_conduit_sink_eop       <= "1";
-      fft_ofdm_inst_sink_bfm_conduit_sink_valid       <= "1";
-      wait for 12.5 ns;
-      
-      fft_ofdm_inst_sink_bfm_conduit_sink_eop       <= "0";
-      fft_ofdm_inst_sink_bfm_conduit_sink_valid       <= "0";
-      
-      --fft_ofdm_inst_sink_bfm_conduit_sink_valid       <= "1";
-      --wait for 12.5 ns;
-      
-      --fft_ofdm_inst_sink_bfm_conduit_sink_valid       <= "0";
-      --fft_ofdm_inst_sink_bfm_conduit_sink_eop       <= "1";
-      --fft_ofdm_inst_sink_bfm_conduit_sink_valid       <= "1";
-      wait for (40-1)*12.5 ns;
-      
-      fft_ofdm_inst_sink_bfm_conduit_sink_eop       <= "0";
-      fft_ofdm_inst_sink_bfm_conduit_sink_valid       <= "0";
-      
-      wait for (40)*(16)*12.5 ns; -- pre
-
-    end loop;
-  
-    
     wait for 200 ns;
-    
     fft_ofdm_inst_sink_bfm_conduit_sink_imag      <= (others => '1');
     fft_ofdm_inst_sink_bfm_conduit_sink_real      <= (others => '1');
     wait for 2 ns;

@@ -76,6 +76,8 @@ begin  --beh
 
     wait;
   end process;
+
+  
   
 end beh;
 

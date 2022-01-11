@@ -6,7 +6,7 @@
 -- Author     : Thomas  Bauernfeind
 -- Company    : 
 -- Created    : 2021-12-13
--- Last update: 2022-01-10
+-- Last update: 2022-01-11
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -48,7 +48,7 @@ end rx_fft_wrapper;
 
 architecture Rtl of rx_fft_wrapper is
 
-  	component fft_ofdm is
+  component fft_ofdm is
 		port (
 			clk          : in  std_logic                     := 'X';             -- clk
 			reset_n      : in  std_logic                     := 'X';             -- reset_n
@@ -107,4 +107,5 @@ begin
       std_ulogic_vector(source_imag)  => source_imag,     --       .source_imag
       std_ulogic_vector(source_exp)   => source_exp_o
       );
+
 end architecture;

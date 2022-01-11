@@ -16,7 +16,7 @@ begin
    begin
       if(rising_edge(iClk)) then -- Port A
          if(iWe = '1') then
-            ram(to_integer(unsigned(iAddr_b))) <= iData;
+            ram(to_integer(unsigned(iAddr_a))) <= iData;
          end if;
          -- Read-during-write on mixed port returns OLD data
          oQ_a <= ram(to_integer(unsigned(iAddr_a)));

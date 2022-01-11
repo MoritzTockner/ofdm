@@ -93,3 +93,5 @@ src/grpDDR3Access/unitDDR3Model/mentor
 !/src/grpCache/unitTbdCache/sim/input.hex
 test_hdl.csv
 test_keras.csv
+.#*
+#*.vhd#

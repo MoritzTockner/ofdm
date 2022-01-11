@@ -202,12 +202,6 @@ begin
       fft_ofdm_inst_sink_bfm_conduit_sink_eop       <= "0";
       fft_ofdm_inst_sink_bfm_conduit_sink_valid       <= "0";
       
-      --fft_ofdm_inst_sink_bfm_conduit_sink_valid       <= "1";
-      --wait for 12.5 ns;
-      
-      --fft_ofdm_inst_sink_bfm_conduit_sink_valid       <= "0";
-      --fft_ofdm_inst_sink_bfm_conduit_sink_eop       <= "1";
-      --fft_ofdm_inst_sink_bfm_conduit_sink_valid       <= "1";
       wait for (40-1)*12.5 ns;
       
       fft_ofdm_inst_sink_bfm_conduit_sink_eop       <= "0";
