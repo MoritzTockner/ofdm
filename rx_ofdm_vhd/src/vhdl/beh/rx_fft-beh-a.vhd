@@ -105,8 +105,8 @@ begin  -- beh
     elsif sys_clk_i'event and sys_clk_i = '1' then
       r <= nxr;
 
-      rx_fft_i_o <= Shift_Left(signed(source_real), to_integer(signed(source_exp)));
-      rx_fft_q_o <= Shift_Left(signed(source_imag), to_integer(signed(source_exp)));
+      rx_fft_i_o <= source_real; -- Shift_Right(signed(source_real), to_integer(signed(source_exp)));
+      rx_fft_q_o <= source_imag; -- Shift_Right(signed(source_imag), to_integer(signed(source_exp)));
       rx_fft_valid_o <= rx_fft_valid;
       rx_fft_first_o <= rx_fft_first;
       
@@ -126,7 +126,11 @@ begin  -- beh
       nxr.start <= '1';
     end if;
 
-    if rx_data_valid_i = '1' then
+    if rx_data_valid_i = '1' and r.last = '1' then
+      nxr.last  <= '0';
+    end if;
+    
+    if rx_data_valid_i = '1' and (rx_data_first_i = '1' or r.start = '1') then
       if r.last <= '1' then
         nxr.last <= '0';
       end if;
@@ -175,9 +179,5 @@ begin  -- beh
       signed(source_real_o) => source_real,
       signed(source_imag_o) => source_imag,
       signed(source_exp_o)  => source_exp);
-
-
-  
-
 
 end beh;  -- of rx_fft

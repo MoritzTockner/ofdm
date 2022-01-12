@@ -117,48 +117,57 @@ begin  --beh
             
         end loop;
         file_close(rx_data_f);
-        
-wait until (sys_clk_s = '1' and sys_reset_s = '1');
-        file_open(rx_data_f, "./fft_in.txt", read_mode);
-        rx_data_first_s <= '1';
 
-        while not(endfile(rx_data_f)) loop
-            -- wait until (sys_clk_s = '1' and sys_reset_s = '1');
-            cycle_cnt_v := cycle_cnt_v+1;
-            if (cycle_cnt_v = 40) then
-                readline(rx_data_f, line_v);
-                read(line_v, i_v);
-                read(line_v, q_v);
-                rx_data_valid_s <= '1';
-                rx_data_i_s     <= to_signed(i_v, 12);
-                rx_data_q_s     <= to_signed(q_v, 12);
-                cycle_cnt_v     := 0;
-            else
-                rx_data_valid_s <= '0';
-                rx_data_first_s <= '0';
-            end if;
-            wait until (sys_clk_s = '1' and sys_reset_s = '1');
-        end loop;
-        file_close(rx_data_f);
 
-        rx_data_valid_s <= '0';
-        rx_data_first_s <= '0';
 
-        State <= CALCULATION_STAGE;
 
-        wait until (rising_edge(sys_clk_s) and sys_reset_s = '1' and rx_fft_first_s = '1' and rx_fft_valid_s = '1');
-        State <= OUTPUT_STAGE;
+        -------------------------------------------------------------------------
+--         wait for 200 ns;
+-- 	wait until (sys_clk_s = '1' and sys_reset_s = '1');
+--         file_open(rx_data_f, "./fft_in.txt", read_mode);
+--         rx_data_first_s <= '1';
 
-        file_open(rx_data_f, "./fft_out.txt", write_mode);
-        for I in 0 to 127 loop
-            write(line_v,  to_integer(rx_fft_i_s));
-            write(line_v, string'(" "));
-            write(line_v,  to_integer(rx_fft_q_s));
-            writeline(rx_data_f, line_v);
-            wait until (rising_edge(sys_clk_s) and sys_reset_s = '1' and rx_fft_valid_s = '1');
+--         while not(endfile(rx_data_f)) loop
+--             -- wait until (sys_clk_s = '1' and sys_reset_s = '1');
+--             cycle_cnt_v := cycle_cnt_v+1;
+--             if (cycle_cnt_v = 40) then
+--                 readline(rx_data_f, line_v);
+--                 read(line_v, i_v);
+--                 read(line_v, q_v);
+--                 rx_data_valid_s <= '1';
+--                 rx_data_i_s     <= to_signed(i_v, 12);
+--                 rx_data_q_s     <= to_signed(q_v, 12);
+--                 cycle_cnt_v     := 0;
+--             else
+                
+                
+--             end if;
+--             wait until (sys_clk_s = '1' and sys_reset_s = '1');
+-- 	rx_data_first_s <= '0';
+-- rx_data_valid_s <= '0';
+--         end loop;
+--         file_close(rx_data_f);
+
+--         rx_data_valid_s <= '0';
+--         rx_data_first_s <= '0';
+
+--         State <= CALCULATION_STAGE;
+
+--         wait until (rising_edge(sys_clk_s) and sys_reset_s = '1' and rx_fft_first_s = '1' and rx_fft_valid_s = '1');
+--         State <= OUTPUT_STAGE;
+
+--         file_open(rx_data_f, "./fft_out.txt", write_mode);
+--         for I in 0 to 127 loop
+--             write(line_v,  to_integer(rx_fft_i_s));
+--             write(line_v, string'(" "));
+--             write(line_v,  to_integer(rx_fft_q_s));
+--             writeline(rx_data_f, line_v);
+--             wait until (rising_edge(sys_clk_s) and sys_reset_s = '1' and rx_fft_valid_s = '1');
             
-        end loop;
-        file_close(rx_data_f);
+--         end loop;
+--         file_close(rx_data_f);
+
+        ---------------------------------------------------------------------------------------------------------------
         wait for 10000 ns;
 
         assert false report "Finished successfully" severity failure;
