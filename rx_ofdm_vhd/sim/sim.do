@@ -11,4 +11,11 @@ vcom -93 ../src/vhdl/rtl/rx_fft-e.vhd
 vcom -93 ../src/vhdl/beh/rx_fft-beh-a.vhd
 vcom -93 ../src/vhdl/tb/tb_fft.vhd
 
-# vsim tb_fft
+vsim fft_tb
+
+if {[file exists wave_tb.do]} {
+  do wave_tb.do
+}
+
+run -all
+
