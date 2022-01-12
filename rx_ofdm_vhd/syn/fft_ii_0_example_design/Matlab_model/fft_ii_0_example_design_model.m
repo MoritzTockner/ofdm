@@ -28,7 +28,7 @@ THROUGHPUT=4;
 ARCH=1;
 
 DATA_PREC=12;
-TWIDDLE_PREC=14;
+TWIDDLE_PREC=16;
 input_vector_length = length(x);                                                              
 number_of_blocks = ceil(input_vector_length/N);                                               
 % Zero-stuff last block if necessary                                                          

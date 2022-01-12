@@ -4,9 +4,12 @@ clearvars;
 %load('Tx_setup.mat');
 %HIL=true;
 
-tracking=true;
-quantize_on=true;
-equalize=true;
+% switches
+tracking = true;
+quantize = true;
+equalize = true;
+write_file_fft_in = true;
+
 nr_symbols=30;  %total number of transmitted symbols (sync+equalize+data)
 nr_equalize=8;  %number of equalizer symbols 
 NumberOfSubcarrier = 128;
@@ -71,7 +74,7 @@ RxModSymbVec=[];
 p=1/sqrt(2);
 ModulationSymbols=[p + 1i*p; p - 1i*p; -p + 1i*p; -p - 1i*p];
 
-if quantize_on
+if quantize
    rx_out=round(rx_out*2048)/2048; 
 end
 
@@ -81,7 +84,7 @@ cicinterp=dsp.CICInterpolator(osr_rx,1,2);
 allRx_osr=cicinterp(rx_out)/(osr_rx);
 allRx=allRx_osr;
 
-if quantize_on
+if quantize
    allRx=round(allRx*2048)/2048; 
 end
 
@@ -90,7 +93,7 @@ disp('Start coarse timing synch');
 step_width=1;
 fine_res=osr*osr_rx;
 
-if quantize_on
+if quantize
    allRx_sync=round(allRx*128)/128;
 else
    allRx_sync=allRx; 
@@ -128,66 +131,70 @@ ylabel('M')
 
 %Find start of Synch Symbol
 %windwo method
-window_len=32*fine_res
+window_len = NumberOfGuardChips*fine_res;
 win_min=zeros(length(P)-window_len+1,1);
 for k=1:length(win_min)
   win_min(k)=min(M(k:k+window_len-1));
 end
 
 
-peak_idx=find((win_min>0.9));
-start_idx=find(diff(win_min(peak_idx))<0);
-start_idx=peak_idx(start_idx(1))+floor(32*fine_res/2)
+peak_idx = find((win_min > 0.9));
+start_idx = find(diff(win_min(peak_idx)) < 0, 1);
+start_idx = peak_idx(start_idx);
+length_cp_fine = NumberOfGuardChips*fine_res;
+mid_cp_idx = start_idx + length_cp_fine/2;
 
-RxAntennaChips=allRx(start_idx:start_idx+nr_symbols*160*osr*osr_rx-1);
+RxAntennaChips = allRx(start_idx:start_idx+nr_symbols*(NumberOfGuardChips + NumberOfSubcarrier)*fine_res-1);
 
-figure(5)
+figure(5) 
 subplot(224)
 hold on;
 
 plot(win_min,'g');
-plot(start_idx,M(start_idx),'r*')
+plot(mid_cp_idx,M(mid_cp_idx),'r*')
 subplot(222)
 hold on;
-plot(start_idx,angle(P(start_idx)),'r*')
+plot(mid_cp_idx,angle(P(mid_cp_idx)),'r*')
 for k=1:floor(length(P)/fine_res/160)
-  plot(mod(start_idx+k*fine_res*160,length(P)),angle(P(start_idx)),'go');
+  plot(mod(mid_cp_idx+k*fine_res*160,length(P)),angle(P(mid_cp_idx)),'go');
 end    
 grid on
 
-%%estimation of CFO
-angle_Pstart=mean(angle(P(start_idx-10*fine_res:start_idx+10*fine_res)));
-CFO_est=angle_Pstart/pi/(NumberOfSubcarrier/AntennaSampleRate); %[Hz]
+%% estimation of CFO
+angle_Pstart = mean(angle(P(mid_cp_idx-10*fine_res:mid_cp_idx+10*fine_res)));
+CFO_est = angle_Pstart/pi/(NumberOfSubcarrier/AntennaSampleRate); %[Hz]
 disp(['Estimated carrier frequncy offset : ' num2str(CFO_est) 'Hz']);
 
 
 
 %% cancel estimated CFO
 
-  t_vec=[0:length(RxAntennaChips)-1]'./(fine_res*AntennaSampleRate);
-  if quantize_on
-    CFO_bb_cancel=round(exp(1i*2*pi*CFO_est*t_vec)*pow2(8))/pow2(8);
-    RxAntennaChips=round(RxAntennaChips.*CFO_bb_cancel*pow2(11))/pow2(11);
-  else
-    CFO_bb_cancel=exp(1i*2*pi*CFO_est*t_vec);
-    RxAntennaChips=RxAntennaChips.*CFO_bb_cancel;      
-  end
+idxs_cfo = length_cp_fine/2:length(RxAntennaChips);
+t_vec=[0:length(RxAntennaChips(idxs_cfo))-1]'./(fine_res*AntennaSampleRate);
+if quantize
+    CFO_bb_cancel = round(exp(1i*2*pi*CFO_est*t_vec)*pow2(8))/pow2(8);
+    RxAntennaChips(idxs_cfo) = round(RxAntennaChips(idxs_cfo).*CFO_bb_cancel*pow2(11))/pow2(11);
+else
+    CFO_bb_cancel = exp(1i*2*pi*CFO_est*t_vec);
+    RxAntennaChips(idxs_cfo) = RxAntennaChips(idxs_cfo).*CFO_bb_cancel;      
+end
     
 
 %% RX Part
 for k=1:nr_symbols  
 %% OFDM_Rx
-    %RxChips=RxAntennaChips(osr*osr_rx*NumberOfGuardChips+1:osr*osr_rx:osr*osr_rx*(NumberOfGuardChips+NumberOfSubcarrier)); %extract symbol
-   
-    RxChips = RxAntennaChips(1:osr*osr_rx:1+osr*osr_rx*(NumberOfSubcarrier-1)); %extract symbol
 
-    if quantize_on 
+    RxChips = RxAntennaChips(1:fine_res:1 + fine_res*(NumberOfGuardChips + NumberOfSubcarrier - 1)); % extract symbol
+    if write_file_fft_in && k == 1
+        RxChipsScaled = writeToHIL(RxChips, 'fft_in', '../../sim/');
+    end
+    RxChips = RxAntennaChips(length_cp_fine/2 + 1:fine_res:1 + fine_res*(NumberOfGuardChips/2 + NumberOfSubcarrier - 1)); 
+
+    if quantize 
         oldpath = addpath('../../syn/fft_ii_0_example_design/Matlab_model/');
         N_fft = NumberOfSubcarrier;
         RxChips = RxChips*pow2(11);  % change format from s1.11 to s12.0
-        RxChips = RxChips.';         % change to row vector for fft model
-
-        RxChipsScaled = writeToHIL(RxChips.', 'fft_in', '../../sim/');
+        RxChips = RxChips.';         % change to row vector for fft model        
 
         [RxModSymbolsVDHLBase, RxModSymbolsVDHLExponent] = fft_ii_0_example_design_model(RxChips, N_fft, 0); 
         RxModSymbolsVDHLBase = RxModSymbolsVDHLBase(digit_reverse(0:(N_fft-1), log2(N_fft)) + 1); % undo bit reverse from FFT VHDL model
@@ -213,7 +220,7 @@ for k=1:nr_symbols
       Hk=Hk+RxModSymbols;
       if k==nr_equalize+1
         Hk=Hk./nr_equalize;
-        if quantize_on
+        if quantize
             Hk_inv=round(1./(Hk./TxSymbol_equal)*pow2(11))/pow2(11);
         else
             Hk_inv=1./(Hk./TxSymbol_equal);
@@ -242,7 +249,7 @@ for k=1:nr_symbols
         end
         
         %correct RxModSymbols
-        if quantize_on
+        if quantize
           RxModSymbols=round(RxModSymbols.*Hk_inv*pow2(11))/pow2(11);
         else
           RxModSymbols=RxModSymbols.*Hk_inv;
