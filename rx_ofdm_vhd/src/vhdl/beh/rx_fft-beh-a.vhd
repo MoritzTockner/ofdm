@@ -78,6 +78,7 @@ architecture beh of rx_fft is
   signal source_real   : signed(11 downto 0);
   signal source_imag   : signed(11 downto 0);
 
+  signal sink_valid : std_ulogic;
   signal source_exp : signed(5 downto 0);
 
   -- buffer output data
@@ -121,9 +122,10 @@ begin  -- beh
         nxr.last <= '0';
       end if;
       
-      if r.cnt_in = to_unsigned(128-1, r.cnt_in'length) then
+      if r.cnt_in = to_unsigned(127-1, r.cnt_in'length) then
         nxr.cnt_in <= to_unsigned(0, r.cnt_in'length);
         nxr.last   <= '1';
+	nxr.start <= '0';
       else
         nxr.cnt_in <= r.cnt_in + 1;
         nxr.last <= '0';
@@ -134,12 +136,14 @@ begin  -- beh
 
   end_of_frame <= r.last and rx_data_valid_i;
 
+  sink_valid <= rx_data_valid_i and (r.start or rx_data_first_i or r.last);
+
   fft_inst : entity work.rx_fft_wrapper
     port map (
       clk_i     => sys_clk_i,
       reset_n_i => sys_reset_i,
 
-      sink_valid_i => rx_data_valid_i,
+      sink_valid_i => sink_valid,
 
       sink_ready_o => fft_isready,
       sink_error_i => fft_in_error,

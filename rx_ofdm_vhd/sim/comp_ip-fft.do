@@ -28,27 +28,23 @@ com
 # the top level. (These are all the files required for simulation other
 # than the files compiled by the Quartus-generated IP simulation script)
 #
-vcom $QSYS_SIMDIR/fft_ofdm.vhd
-vcom ../src/vhdl/rtl/unitSimpleDPR/DualPortedRam-e.vhd
-vcom ../src/vhdl/rtl/unitSimpleDPR/DualPortedRam-Rtl-a.vhd
-vcom ../src/vhdl/rtl/rx_fft_wrapper-ae.vhd
-vcom ../src/vhdl/rtl/unitSimpleDPR/DualPortedRam-Rtl-a.vhd
-vcom ../src/vhdl/rtl/unitSimpleDPR/DualPortedRam-e.vhd
-vcom ../src/vhdl/rtl/rx_fft-e.vhd
-vcom ../src/vhdl/beh/rx_fft-beh-a.vhd
-vcom ../src/vhdl/tb/tb_fft.vhd
+#vcom $QSYS_SIMDIR/fft_ofdm.vhd
+#vcom ../src/vhdl/rtl/rx_fft_wrapper-ae.vhd
+#vcom ../src/vhdl/rtl/rx_fft-e.vhd
+#vcom ../src/vhdl/beh/rx_fft-beh-a.vhd
+#vcom ../src/vhdl/tb/tb_fft.vhd
 #vlog <compilation options> <design and testbench files>
 #
 # Set the top-level simulation or testbench module/entity name, which is
 # used by the elab command to elaborate the top level.
 #
-set TOP_LEVEL_NAME fft_tb
+#set TOP_LEVEL_NAME fft_tb
 #
 # Set any elaboration options you require.
 #set USER_DEFINED_ELAB_OPTIONS <elaboration options>
 #
 # Call command to elaborate your design and testbench.
-elab
+#elab
 #
 # Run the simulation.
 #run -a

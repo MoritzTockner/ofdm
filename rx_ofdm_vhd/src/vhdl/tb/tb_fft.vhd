@@ -74,7 +74,7 @@ begin  --beh
         variable cycle_cnt_v, i_v, q_v : integer := 40-1;
 
     begin  -- process Stimuli
-        wait for 100 ns;
+        wait for 200 ns;
 
         wait until (sys_clk_s = '1' and sys_reset_s = '1');
         file_open(rx_data_f, "./fft_in.txt", read_mode);
@@ -104,16 +104,16 @@ begin  --beh
 
         State <= CALCULATION_STAGE;
 
-        wait until (sys_clk_s = '1' and sys_reset_s = '1' and rx_fft_first_o and rx_fft_valid_o);
+        wait until (sys_clk_s = '1' and sys_reset_s = '1' and rx_fft_first_s = '1' and rx_fft_valid_s = '1');
         State <= OUTPUT_STAGE;
 
         file_open(rx_data_f, "./fft_out.txt", write_mode);
-        for I in o to 127 loop
-            write(line_v,  rx_fft_i_s);
+        for I in 0 to 127 loop
+            write(line_v,  to_integer(rx_fft_i_s));
             write(line_v, string'(" "));
-            write(line_v,  rx_fft_q_s);
+            write(line_v,  to_integer(rx_fft_q_s));
             writeline(rx_data_f, line_v);
-            wait until (sys_clk_s = '1' and sys_reset_s = '1' and rx_fft_valid_o);
+            wait until (sys_clk_s = '1' and sys_reset_s = '1' and rx_fft_valid_s = '1');
             
         end loop;
         file_close(rx_data_f);
