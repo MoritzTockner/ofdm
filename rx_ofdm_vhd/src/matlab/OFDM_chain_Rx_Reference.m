@@ -181,29 +181,38 @@ end
 for k=1:nr_symbols  
 %% OFDM_Rx
     % extract symbol
-    RxChips = RxAntennaChips(1:fine_res:1 + fine_res*(NumberOfGuardChips + NumberOfSubcarrier - 1)); 
-    if write_file_fft_in && k == 1
-        [RxChipsScaled, Scale] = writeHIL(RxChips, 'fft_in', '../../sim/');
+    RxChips = RxAntennaChips(1:fine_res:fine_res*(NumberOfGuardChips + NumberOfSubcarrier)); 
+    if write_file_fft_in && k == 1        
+        [RxChipsScaled, Scale] = scaleToHIL(RxChips, 11);
+        writeHIL(RxChipsScaled, 'fft_in', '../../sim/');
     end
     % cut CP at the end
-    RxChips = RxChips(1:NumberOfSubcarrier - 1);
+    RxChips = RxChips(1:NumberOfSubcarrier);
 
     if quantize 
         oldpath = addpath('../../syn/fft_ii_0_example_design/Matlab_model/');
         N_fft = NumberOfSubcarrier;
-        RxChips = RxChips*pow2(11);  % change format from s1.11 to s12.0
-        RxChips = RxChips.';         % change to row vector for fft model        
 
-        [RxModSymbolsVDHLBase, RxModSymbolsVDHLExponent] = fft_ii_0_example_design_model(RxChips, N_fft, 0); 
-        RxModSymbolsVDHLBase = RxModSymbolsVDHLBase(digit_reverse(0:(N_fft-1), log2(N_fft)) + 1); % undo bit reverse from FFT VHDL model
-        RxModSymbolsVDHLBase = RxModSymbolsVDHLBase.';
-        RxModSymbolsVHDL = RxModSymbolsVDHLBase/pow2(11);
+        RxModSymbolsIdeal = fft(RxChips);
+
+        RxChips = RxChips.';         % change to row vector for fft model        
+        RxChips = round(RxChips.*pow2(11));
+
+        [RxModSymbolsBase, RxModSymbolsExponent] = fft_ii_0_example_design_model(RxChips, N_fft, 0); 
+%         RxModSymbols = round(RxModSymbolsBase.*pow2(-RxModSymbolsExponent)); % convert block floating point to fixed point s12.0
+        RxModSymbols = RxModSymbolsBase;
+        RxModSymbols = RxModSymbols.';
         path(oldpath);
 
-        RxModSymbols=round(RxModSymbolsVHDL/sqrt(128)*pow2(11))/pow2(11);
+        RxModSymbolsVHDL = readHIL('fft_out', Scale, '../../sim/');
+
+%         % undo scaling for HIL and change format to s1.11
+        RxModSymbols = RxModSymbols./pow2(11);
+
+        RxModSymbols = round(RxModSymbols/sqrt(NumberOfSubcarrier)*pow2(11))/pow2(11); % divide by sqrt(N)
     else
         RxModSymbols = fft(RxChips);
-        RxModSymbols=RxModSymbols/sqrt(128);
+        RxModSymbols=RxModSymbols/sqrt(NumberOfSubcarrier);
     end
     %% Modulation Demapper 
     if (k>1 && k<=nr_equalize+1 && equalize)

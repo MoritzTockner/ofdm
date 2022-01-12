@@ -4,8 +4,6 @@ function data = readHIL(filename, scale, filepath)
         filepath = './';
     end
 
-    data_prec = 11;
-
     %% read files from HIL .txt file
     data_i = [];
     data_q = [];
@@ -22,6 +20,6 @@ function data = readHIL(filename, scale, filepath)
     fclose(fileID);
 
     data_scaled = data_i + 1j*data_q;
-    data = data_scaled.*scale./pow2(data_prec);
+    data = data_scaled.*scale;
 
 end
