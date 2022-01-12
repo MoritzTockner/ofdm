@@ -28,7 +28,7 @@
 -- This BFM's HDL is been generated through terp file in Qsys/SOPC Builder.
 -- Generation parameters:
 -- output_name:                  altera_conduit_bfm
--- role:width:direction:         inverse:1:output,sink_eop:1:output,sink_error:2:output,sink_imag:18:output,sink_ready:1:input,sink_real:18:output,sink_sop:1:output,sink_valid:1:output
+-- role:width:direction:         inverse:1:output,sink_eop:1:output,sink_error:2:output,sink_imag:12:output,sink_ready:1:input,sink_real:12:output,sink_sop:1:output,sink_valid:1:output
 -- clocked                       1
 -------------------------------------------------------------------------------
 
@@ -53,8 +53,8 @@ package altera_conduit_bfm_vhdl_pkg is
       sig_inverse_out        : std_logic_vector(0 downto 0);
       sig_sink_eop_out       : std_logic_vector(0 downto 0);
       sig_sink_error_out     : std_logic_vector(1 downto 0);
-      sig_sink_imag_out      : std_logic_vector(17 downto 0);
-      sig_sink_real_out      : std_logic_vector(17 downto 0);
+      sig_sink_imag_out      : std_logic_vector(11 downto 0);
+      sig_sink_real_out      : std_logic_vector(11 downto 0);
       sig_sink_sop_out       : std_logic_vector(0 downto 0);
       sig_sink_valid_out     : std_logic_vector(0 downto 0);
    end record;
@@ -77,13 +77,13 @@ package altera_conduit_bfm_vhdl_pkg is
    procedure set_sink_error             (signal_value : in std_logic_vector(1 downto 0));
    
    -- set sink_imag value
-   procedure set_sink_imag              (signal_value : in std_logic_vector(17 downto 0));
+   procedure set_sink_imag              (signal_value : in std_logic_vector(11 downto 0));
    
    -- get sink_ready value
    procedure get_sink_ready             (signal_value : out std_logic_vector(0 downto 0));
    
    -- set sink_real value
-   procedure set_sink_real              (signal_value : in std_logic_vector(17 downto 0));
+   procedure set_sink_real              (signal_value : in std_logic_vector(11 downto 0));
    
    -- set sink_sop value
    procedure set_sink_sop               (signal_value : in std_logic_vector(0 downto 0));
@@ -121,7 +121,7 @@ package body altera_conduit_bfm_vhdl_pkg is
       
    end procedure set_sink_error;
    
-   procedure set_sink_imag              (signal_value : in std_logic_vector(17 downto 0)) is
+   procedure set_sink_imag              (signal_value : in std_logic_vector(11 downto 0)) is
    begin
       
       out_trans.sig_sink_imag_out := signal_value;
@@ -135,7 +135,7 @@ package body altera_conduit_bfm_vhdl_pkg is
    
    end procedure get_sink_ready;
    
-   procedure set_sink_real              (signal_value : in std_logic_vector(17 downto 0)) is
+   procedure set_sink_real              (signal_value : in std_logic_vector(11 downto 0)) is
    begin
       
       out_trans.sig_sink_real_out := signal_value;

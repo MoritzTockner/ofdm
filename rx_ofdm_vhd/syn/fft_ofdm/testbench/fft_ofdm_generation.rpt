@@ -20,56 +20,58 @@ Info: Reading index C:\intelfpga\20.1\quartus\sopc_builder\bin\root_components.i
 Info: C:\intelfpga\20.1\quartus\sopc_builder\bin\root_components.ipx: Loading now from components.ipx
 Info: Reading index C:\intelfpga\20.1\quartus\sopc_builder\bin\ip_component_categories.ipx
 Info: C:\intelfpga\20.1\quartus\sopc_builder\bin\ip_component_categories.ipx described 0 plugins, 0 paths, in 0,00 seconds
-Info: C:/intelfpga/20.1/quartus/sopc_builder/bin/ip_component_categories.ipx matched 1 files in 0,00 seconds
+Info: C:/intelfpga/20.1/quartus/sopc_builder/bin/ip_component_categories.ipx matched 1 files in 0,01 seconds
 Info: C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/testbench/ip/**/* matched 0 files in 0,00 seconds
 Info: Reading index C:\Plainer_git\ESD3\ofdm\rx_ofdm_vhd\syn\fft_ofdm\testbench\fft_ofdm.ipx
 Progress: Loading syn/fft_ofdm.qsys
-Info: C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/* matched 13 files in 0,00 seconds
+Progress: Loading syn/fft_ofdm_final.qsys
+Info: C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/* matched 20 files in 0,00 seconds
 Info: C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/ip/**/* matched 0 files in 0,00 seconds
-Info: C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/*/* matched 513 files in 0,02 seconds
-Info: C:\Plainer_git\ESD3\ofdm\rx_ofdm_vhd\syn\fft_ofdm\testbench\fft_ofdm.ipx described 0 plugins, 3 paths, in 0,02 seconds
-Info: C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/testbench/* matched 4 files in 0,03 seconds
-Info: C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/testbench/*/* matched 0 files in 0,00 seconds
+Info: C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/*/* matched 533 files in 0,03 seconds
+Info: C:\Plainer_git\ESD3\ofdm\rx_ofdm_vhd\syn\fft_ofdm\testbench\fft_ofdm.ipx described 0 plugins, 3 paths, in 0,04 seconds
+Progress: Loading testbench/fft_ofdm_tb.qsys
+Info: C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/testbench/* matched 12 files in 0,04 seconds
+Info: C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/syn/fft_ofdm/testbench/*/* matched 9 files in 0,00 seconds
 Info: Reading index C:\Users\P42407\.altera.quartus\ip\20.1\ip_search_path\user_components.ipx
 Progress: Loading src/CnnSystem_hw.tcl
 Progress: Loading src/fifo_ddr_hw.tcl
-Info: C:/Plainer_git/PrjSatNN/satnn/cnnonfpga/src/grpSystem/unitCacheMaxPoolConvControl/src/**/* matched 10 files in 0,06 seconds
-Info: C:\Users\P42407\.altera.quartus\ip\20.1\ip_search_path\user_components.ipx described 0 plugins, 1 paths, in 0,07 seconds
-Info: C:/Users/P42407/.altera.quartus/ip/20.1/**/* matched 2 files in 0,07 seconds
+Info: C:/Plainer_git/PrjSatNN/satnn/cnnonfpga/src/grpSystem/unitCacheMaxPoolConvControl/src/**/* matched 10 files in 0,08 seconds
+Info: C:\Users\P42407\.altera.quartus\ip\20.1\ip_search_path\user_components.ipx described 0 plugins, 1 paths, in 0,08 seconds
+Info: C:/Users/P42407/.altera.quartus/ip/20.1/**/* matched 2 files in 0,08 seconds
 Info: C:/intelfpga/20.1/quartus/sopc_builder/bin/$$QUARTUS_IP_PROJECTDIR/* matched 0 files in 0,00 seconds
 Info: C:/intelfpga/20.1/quartus/sopc_builder/bin/$$QUARTUS_IP_USERDIR/* matched 0 files in 0,00 seconds
 Info: C:/intelfpga/20.1/quartus/sopc_builder/bin/$$QUARTUS_IP_GLOBALDIR/* matched 0 files in 0,00 seconds
 Info: Reading index C:\intelfpga\20.1\ip\altera\altera_components.ipx
-Info: C:\intelfpga\20.1\ip\altera\altera_components.ipx described 1971 plugins, 0 paths, in 0,14 seconds
-Info: C:/intelfpga/20.1/ip/**/* matched 109 files in 0,15 seconds
+Info: C:\intelfpga\20.1\ip\altera\altera_components.ipx described 1971 plugins, 0 paths, in 0,16 seconds
+Info: C:/intelfpga/20.1/ip/**/* matched 109 files in 0,17 seconds
 Info: C:/intelfpga/ip/**/* matched 0 files in 0,00 seconds
 Info: Reading index C:\intelfpga\20.1\quartus\sopc_builder\builtin.ipx
 Info: C:\intelfpga\20.1\quartus\sopc_builder\builtin.ipx described 83 plugins, 0 paths, in 0,01 seconds
 Info: C:/intelfpga/20.1/quartus/sopc_builder/**/* matched 8 files in 0,01 seconds
 Info: C:/intelfpga/20.1/quartus/common/librarian/factories/**/* matched 0 files in 0,00 seconds
 Info: C:/intelfpga/20.1/quartus/sopc_builder/bin/$IP_IPX_PATH matched 1 files in 0,00 seconds
-Info: C:\intelfpga\20.1\quartus\sopc_builder\bin\root_components.ipx described 0 plugins, 13 paths, in 0,26 seconds
-Info: C:/intelfpga/20.1/quartus/sopc_builder/bin/root_components.ipx matched 1 files in 0,26 seconds
+Info: C:\intelfpga\20.1\quartus\sopc_builder\bin\root_components.ipx described 0 plugins, 13 paths, in 0,31 seconds
+Info: C:/intelfpga/20.1/quartus/sopc_builder/bin/root_components.ipx matched 1 files in 0,31 seconds
 Progress: 
-Progress: (2059) searching c:\users\p42407\hdl-make-master\tests\nios\src (Quartus IP Search Path)
+Progress: (2061) searching c:\users\p42407\hdl-make-master\tests\nios\src (Quartus IP Search Path)
 Progress: Loading src/generic_mm_slave_hw.tcl
 Info: C:/users/p42407/hdl-make-master/tests/nios/src/* matched 2 files in 0,04 seconds
 Progress: 
-Progress: (2060) searching c:\users\p42407\hdl-make-master\tests\nios\syn\cyclonev (Quartus IP Search Path)
+Progress: (2062) searching c:\users\p42407\hdl-make-master\tests\nios\syn\cyclonev (Quartus IP Search Path)
 Progress: Loading cyclonev/new_component_hw.tcl
 Progress: Loading cyclonev/nios_system.qsys
 Progress: Loading cyclonev/nios_system_hw.tcl
 Info: C:/users/p42407/hdl-make-master/tests/nios/syn/cyclonev/* matched 14 files in 0,08 seconds
 Progress: 
-Progress: (2063) searching c:\plainer_git\prjsatnn\satnn\cnnonfpga\src\grpddr3access\unitreadwriteddr3\syn (Quartus IP Search Path)
+Progress: (2065) searching c:\plainer_git\prjsatnn\satnn\cnnonfpga\src\grpddr3access\unitreadwriteddr3\syn (Quartus IP Search Path)
 Progress: Loading syn/ClockCrossFPGADDR3_hw.tcl
 Progress: Loading syn/dev_5csx_h6_42a.qsys
 Info: C:/plainer_git/prjsatnn/satnn/cnnonfpga/src/grpddr3access/unitreadwriteddr3/syn/* matched 22 files in 0,05 seconds
 Progress: 
-Progress: (2065) searching ..\..\..\grpcontrolunit\src (Quartus IP Search Path)
+Progress: (2067) searching ..\..\..\grpcontrolunit\src (Quartus IP Search Path)
 Info: C:/Plainer_git/ESD3/grpcontrolunit/src matched 1 files in 0,00 seconds
 Progress: 
-Progress: (2065) searching ..\src (Quartus IP Search Path)
+Progress: (2067) searching ..\src (Quartus IP Search Path)
 Info: C:/Plainer_git/ESD3/ofdm/rx_ofdm_vhd/src/* matched 2 files in 0,00 seconds
 Progress: 
 Progress: 
@@ -187,7 +189,7 @@ Info: get_instance_interface_port_property fft_ofdm_inst sink sink_valid DIRECTI
 Info: set_instance_parameter_value fft_ofdm_inst_sink_bfm CLOCKED_SIGNAL 1
 Info: set_instance_parameter_value fft_ofdm_inst_sink_bfm ENABLE_RESET 1
 Info: set_instance_parameter_value fft_ofdm_inst_sink_bfm SIGNAL_ROLES inverse sink_eop sink_error sink_imag sink_ready sink_real sink_sop sink_valid
-Info: set_instance_parameter_value fft_ofdm_inst_sink_bfm SIGNAL_WIDTHS 1 1 2 18 1 18 1 1
+Info: set_instance_parameter_value fft_ofdm_inst_sink_bfm SIGNAL_WIDTHS 1 1 2 12 1 12 1 1
 Info: set_instance_parameter_value fft_ofdm_inst_sink_bfm SIGNAL_DIRECTIONS output output output output input output output output
 Info: get_instance_property fft_ofdm_inst_sink_bfm CLASS_NAME
 Info: get_instance_interfaces fft_ofdm_inst_sink_bfm
@@ -253,7 +255,7 @@ Info: get_instance_interface_port_property fft_ofdm_inst source source_valid DIR
 Info: set_instance_parameter_value fft_ofdm_inst_source_bfm CLOCKED_SIGNAL 1
 Info: set_instance_parameter_value fft_ofdm_inst_source_bfm ENABLE_RESET 1
 Info: set_instance_parameter_value fft_ofdm_inst_source_bfm SIGNAL_ROLES source_eop source_error source_exp source_imag source_ready source_real source_sop source_valid
-Info: set_instance_parameter_value fft_ofdm_inst_source_bfm SIGNAL_WIDTHS 1 2 6 18 1 18 1 1
+Info: set_instance_parameter_value fft_ofdm_inst_source_bfm SIGNAL_WIDTHS 1 2 6 12 1 12 1 1
 Info: set_instance_parameter_value fft_ofdm_inst_source_bfm SIGNAL_DIRECTIONS input input input input output input input input
 Info: get_instance_property fft_ofdm_inst_source_bfm CLASS_NAME
 Info: get_instance_interfaces fft_ofdm_inst_source_bfm

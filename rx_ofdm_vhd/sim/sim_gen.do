@@ -40,7 +40,7 @@ set TOP_LEVEL_NAME fft_ofdm_tb
 #set USER_DEFINED_ELAB_OPTIONS <elaboration options>
 #
 # Call command to elaborate your design and testbench.
-elab
+#elab
 #
 # Run the simulation.
 #run -a

@@ -36,7 +36,6 @@ work/
 
 .hdl_checker/
 .vscode/
-*.hex
 
 mem_init/
 

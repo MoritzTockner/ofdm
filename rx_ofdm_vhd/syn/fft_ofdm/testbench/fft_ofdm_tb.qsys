@@ -105,7 +105,7 @@
   <parameter name="ENABLE_RESET" value="true" />
   <parameter name="SIGNAL_DIRECTIONS">output,output,output,output,input,output,output,output</parameter>
   <parameter name="SIGNAL_ROLES">inverse,sink_eop,sink_error,sink_imag,sink_ready,sink_real,sink_sop,sink_valid</parameter>
-  <parameter name="SIGNAL_WIDTHS" value="1,1,2,18,1,18,1,1" />
+  <parameter name="SIGNAL_WIDTHS" value="1,1,2,12,1,12,1,1" />
  </module>
  <module
    name="fft_ofdm_inst_source_bfm"
@@ -116,7 +116,7 @@
   <parameter name="ENABLE_RESET" value="true" />
   <parameter name="SIGNAL_DIRECTIONS">input,input,input,input,output,input,input,input</parameter>
   <parameter name="SIGNAL_ROLES">source_eop,source_error,source_exp,source_imag,source_ready,source_real,source_sop,source_valid</parameter>
-  <parameter name="SIGNAL_WIDTHS" value="1,2,6,18,1,18,1,1" />
+  <parameter name="SIGNAL_WIDTHS" value="1,2,6,12,1,12,1,1" />
  </module>
  <connection
    kind="clock"

@@ -28,7 +28,7 @@
 -- This BFM's HDL is been generated through terp file in Qsys/SOPC Builder.
 -- Generation parameters:
 -- output_name:                  altera_conduit_bfm_0002
--- role:width:direction:         source_eop:1:input,source_error:2:input,source_exp:6:input,source_imag:18:input,source_ready:1:output,source_real:18:input,source_sop:1:input,source_valid:1:input
+-- role:width:direction:         source_eop:1:input,source_error:2:input,source_exp:6:input,source_imag:12:input,source_ready:1:output,source_real:12:input,source_sop:1:input,source_valid:1:input
 -- clocked                       1
 -------------------------------------------------------------------------------
 
@@ -46,9 +46,9 @@ entity altera_conduit_bfm_0002 is
       sig_source_eop     : in    std_logic_vector(0 downto 0);
       sig_source_error   : in    std_logic_vector(1 downto 0);
       sig_source_exp     : in    std_logic_vector(5 downto 0);
-      sig_source_imag    : in    std_logic_vector(17 downto 0);
+      sig_source_imag    : in    std_logic_vector(11 downto 0);
       sig_source_ready   : out   std_logic_vector(0 downto 0);
-      sig_source_real    : in    std_logic_vector(17 downto 0);
+      sig_source_real    : in    std_logic_vector(11 downto 0);
       sig_source_sop     : in    std_logic_vector(0 downto 0);
       sig_source_valid   : in    std_logic_vector(0 downto 0)
    );

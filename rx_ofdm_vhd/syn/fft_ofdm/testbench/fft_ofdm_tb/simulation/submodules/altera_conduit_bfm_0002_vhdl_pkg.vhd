@@ -28,7 +28,7 @@
 -- This BFM's HDL is been generated through terp file in Qsys/SOPC Builder.
 -- Generation parameters:
 -- output_name:                  altera_conduit_bfm_0002
--- role:width:direction:         source_eop:1:input,source_error:2:input,source_exp:6:input,source_imag:18:input,source_ready:1:output,source_real:18:input,source_sop:1:input,source_valid:1:input
+-- role:width:direction:         source_eop:1:input,source_error:2:input,source_exp:6:input,source_imag:12:input,source_ready:1:output,source_real:12:input,source_sop:1:input,source_valid:1:input
 -- clocked                       1
 -------------------------------------------------------------------------------
 
@@ -60,8 +60,8 @@ package altera_conduit_bfm_0002_vhdl_pkg is
    signal sig_source_eop_in        : std_logic_vector(0 downto 0);
    signal sig_source_error_in      : std_logic_vector(1 downto 0);
    signal sig_source_exp_in        : std_logic_vector(5 downto 0);
-   signal sig_source_imag_in       : std_logic_vector(17 downto 0);
-   signal sig_source_real_in       : std_logic_vector(17 downto 0);
+   signal sig_source_imag_in       : std_logic_vector(11 downto 0);
+   signal sig_source_real_in       : std_logic_vector(11 downto 0);
    signal sig_source_sop_in        : std_logic_vector(0 downto 0);
    signal sig_source_valid_in      : std_logic_vector(0 downto 0);
 
@@ -77,13 +77,13 @@ package altera_conduit_bfm_0002_vhdl_pkg is
    procedure get_source_exp               (signal_value : out std_logic_vector(5 downto 0));
    
    -- get source_imag value
-   procedure get_source_imag              (signal_value : out std_logic_vector(17 downto 0));
+   procedure get_source_imag              (signal_value : out std_logic_vector(11 downto 0));
    
    -- set source_ready value
    procedure set_source_ready             (signal_value : in std_logic_vector(0 downto 0));
    
    -- get source_real value
-   procedure get_source_real              (signal_value : out std_logic_vector(17 downto 0));
+   procedure get_source_real              (signal_value : out std_logic_vector(11 downto 0));
    
    -- get source_sop value
    procedure get_source_sop               (signal_value : out std_logic_vector(0 downto 0));
@@ -133,7 +133,7 @@ package body altera_conduit_bfm_0002_vhdl_pkg is
    
    end procedure get_source_exp;
    
-   procedure get_source_imag              (signal_value : out std_logic_vector(17 downto 0)) is
+   procedure get_source_imag              (signal_value : out std_logic_vector(11 downto 0)) is
    begin
 
       signal_value := sig_source_imag_in;
@@ -147,7 +147,7 @@ package body altera_conduit_bfm_0002_vhdl_pkg is
       
    end procedure set_source_ready;
    
-   procedure get_source_real              (signal_value : out std_logic_vector(17 downto 0)) is
+   procedure get_source_real              (signal_value : out std_logic_vector(11 downto 0)) is
    begin
 
       signal_value := sig_source_real_in;

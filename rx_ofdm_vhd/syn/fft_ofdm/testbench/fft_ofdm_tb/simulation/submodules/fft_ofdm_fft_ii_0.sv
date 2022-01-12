@@ -19,8 +19,8 @@ module fft_ofdm_fft_ii_0 (
 	input	sink_valid,
 	input	sink_sop,
 	input	sink_eop,
-	input	logic [17 : 0] sink_real,
-	input	logic [17 : 0] sink_imag,
+	input	logic [11 : 0] sink_real,
+	input	logic [11 : 0] sink_imag,
 	input	logic [1 : 0] sink_error,
 	input	source_ready,
    output [5 : 0] source_exp,
@@ -29,8 +29,8 @@ module fft_ofdm_fft_ii_0 (
 	output source_sop,
 	output source_eop,
 	output source_valid,
-	output [17 : 0] source_real,
-	output [17 : 0] source_imag
+	output [11 : 0] source_real,
+	output [11 : 0] source_imag
 	);
 
 	asj_fft_si_sose_so_b #(
@@ -38,8 +38,8 @@ module fft_ofdm_fft_ii_0 (
 		.nps(128),
 		.bfp(1),
 		.nume(1),
-		.mpr(18),
-		.twr(8),
+		.mpr(12),
+		.twr(14),
 		.bpr(16),
 		.bpb(4),
 		.fpr(4),
