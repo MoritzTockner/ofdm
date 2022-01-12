@@ -1,8 +1,10 @@
-function data_scaled = writeToHIL(data, filename, filepath)
+function [data_scaled, scale] = writeHIL(data, filename, filepath)
     
     if nargin < 3
         filepath = './';
     end
+
+    data_prec = 11;
 
     %% write files for HIL
     scale = max(max(abs(real(data))),max(abs(imag(data))));
@@ -12,12 +14,10 @@ function data_scaled = writeToHIL(data, filename, filepath)
     save([filepath, filename, '.mat'],'data_scaled');
 
     % Write to .txt file
-    data_i = round(real(data)/scale*pow2(10));
-    data_q = round(imag(data)/scale*pow2(10));
-    data_scaled = [data_i data_q];
+    data_scaled = round(data./scale.*pow2(data_prec));
     fileID = fopen([filepath, filename, '.txt'], 'w');
-    for idx = 1:length(data_i)
-        fprintf(fileID, '%i %i\n', data_scaled(idx,1), data_scaled(idx,2));
+    for idx = 1:length(data_scaled)
+        fprintf(fileID, '%i %i\n', real(data_scaled(idx)), imag(data_scaled(idx)));
     end
     fclose(fileID);
 

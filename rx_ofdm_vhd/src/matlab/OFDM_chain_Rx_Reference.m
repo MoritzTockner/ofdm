@@ -140,9 +140,7 @@ end
 
 peak_idx = find((win_min > 0.9));
 start_idx = find(diff(win_min(peak_idx)) < 0, 1);
-start_idx = peak_idx(start_idx);
-length_cp_fine = NumberOfGuardChips*fine_res;
-mid_cp_idx = start_idx + length_cp_fine/2;
+start_idx = peak_idx(start_idx) + NumberOfGuardChips*fine_res/2;
 
 RxAntennaChips = allRx(start_idx:start_idx+nr_symbols*(NumberOfGuardChips + NumberOfSubcarrier)*fine_res-1);
 
@@ -151,17 +149,17 @@ subplot(224)
 hold on;
 
 plot(win_min,'g');
-plot(mid_cp_idx,M(mid_cp_idx),'r*')
+plot(start_idx,M(start_idx),'r*')
 subplot(222)
 hold on;
-plot(mid_cp_idx,angle(P(mid_cp_idx)),'r*')
+plot(start_idx,angle(P(start_idx)),'r*')
 for k=1:floor(length(P)/fine_res/160)
-  plot(mod(mid_cp_idx+k*fine_res*160,length(P)),angle(P(mid_cp_idx)),'go');
+  plot(mod(start_idx+k*fine_res*160,length(P)),angle(P(start_idx)),'go');
 end    
 grid on
 
 %% estimation of CFO
-angle_Pstart = mean(angle(P(mid_cp_idx-10*fine_res:mid_cp_idx+10*fine_res)));
+angle_Pstart = mean(angle(P(start_idx-10*fine_res:start_idx+10*fine_res)));
 CFO_est = angle_Pstart/pi/(NumberOfSubcarrier/AntennaSampleRate); %[Hz]
 disp(['Estimated carrier frequncy offset : ' num2str(CFO_est) 'Hz']);
 
@@ -169,26 +167,26 @@ disp(['Estimated carrier frequncy offset : ' num2str(CFO_est) 'Hz']);
 
 %% cancel estimated CFO
 
-idxs_cfo = length_cp_fine/2:length(RxAntennaChips);
-t_vec=[0:length(RxAntennaChips(idxs_cfo))-1]'./(fine_res*AntennaSampleRate);
+t_vec=[0:length(RxAntennaChips)-1]'./(fine_res*AntennaSampleRate);
 if quantize
     CFO_bb_cancel = round(exp(1i*2*pi*CFO_est*t_vec)*pow2(8))/pow2(8);
-    RxAntennaChips(idxs_cfo) = round(RxAntennaChips(idxs_cfo).*CFO_bb_cancel*pow2(11))/pow2(11);
+    RxAntennaChips = round(RxAntennaChips.*CFO_bb_cancel*pow2(11))/pow2(11);
 else
     CFO_bb_cancel = exp(1i*2*pi*CFO_est*t_vec);
-    RxAntennaChips(idxs_cfo) = RxAntennaChips(idxs_cfo).*CFO_bb_cancel;      
+    RxAntennaChips = RxAntennaChips.*CFO_bb_cancel;      
 end
     
 
 %% RX Part
 for k=1:nr_symbols  
 %% OFDM_Rx
-
-    RxChips = RxAntennaChips(1:fine_res:1 + fine_res*(NumberOfGuardChips + NumberOfSubcarrier - 1)); % extract symbol
+    % extract symbol
+    RxChips = RxAntennaChips(1:fine_res:1 + fine_res*(NumberOfGuardChips + NumberOfSubcarrier - 1)); 
     if write_file_fft_in && k == 1
-        RxChipsScaled = writeToHIL(RxChips, 'fft_in', '../../sim/');
+        [RxChipsScaled, Scale] = writeHIL(RxChips, 'fft_in', '../../sim/');
     end
-    RxChips = RxAntennaChips(length_cp_fine/2 + 1:fine_res:1 + fine_res*(NumberOfGuardChips/2 + NumberOfSubcarrier - 1)); 
+    % cut CP at the end
+    RxChips = RxChips(1:NumberOfSubcarrier - 1);
 
     if quantize 
         oldpath = addpath('../../syn/fft_ii_0_example_design/Matlab_model/');
@@ -201,9 +199,8 @@ for k=1:nr_symbols
         RxModSymbolsVDHLBase = RxModSymbolsVDHLBase.';
         RxModSymbolsVHDL = RxModSymbolsVDHLBase/pow2(11);
         path(oldpath);
-   
+
         RxModSymbols=round(RxModSymbolsVHDL/sqrt(128)*pow2(11))/pow2(11);
-%       RxModSymbols=round(RxModSymbols/sqrt(128)*pow2(11))/pow2(11);      
     else
         RxModSymbols = fft(RxChips);
         RxModSymbols=RxModSymbols/sqrt(128);
