@@ -8,7 +8,8 @@ clearvars;
 tracking = true;
 quantize = true;
 equalize = true;
-write_file_fft_in = true;
+write_file_fft_in = false;
+read_file_fft_in = false;
 
 nr_symbols=30;  %total number of transmitted symbols (sync+equalize+data)
 nr_equalize=8;  %number of equalizer symbols 
@@ -182,21 +183,33 @@ for k=1:nr_symbols
 %% OFDM_Rx
     % extract symbol
     RxChips = RxAntennaChips(1:fine_res:fine_res*(NumberOfGuardChips + NumberOfSubcarrier)); 
-    if write_file_fft_in && k == 1        
-        [RxChipsScaled, Scale] = scaleToHIL(RxChips, 11);
-        writeHIL(RxChipsScaled, 'fft_in', '../../sim/');
+    if k == 1
+        if write_file_fft_in
+            [RxChipsScaled, Scale] = scaleToHIL(RxChips, 11);
+            writeHIL(RxChipsScaled, 'fft_in', '../../sim/');
+        end
+        if read_file_fft_in
+            % Estimate scale factor used for fft_in generation
+            [~, Scale] = scaleToHIL(RxChips, 11); 
+
+            RxChips = readHIL('fft_in', '../../sim/');
+            
+            % Undo scaling and convert from s12.0 to s1.11
+            RxChips = scaleFromHIL(RxChips, Scale, 11);
+        end
     end
+
     % cut CP at the end
     RxChips = RxChips(1:NumberOfSubcarrier);
 
-    if quantize 
+    if quantize
         oldpath = addpath('../../syn/fft_ii_0_example_design/Matlab_model/');
         N_fft = NumberOfSubcarrier;
 
-        RxModSymbolsIdeal = fft(RxChips);
-
         RxChips = RxChips.';         % change to row vector for fft model        
         RxChips = round(RxChips.*pow2(11));
+
+        RxModSymbolsIdeal = fft(RxChips).';
 
         [RxModSymbolsBase, RxModSymbolsExponent] = fft_ii_0_example_design_model(RxChips, N_fft, 0); 
 %         RxModSymbols = round(RxModSymbolsBase.*pow2(-RxModSymbolsExponent)); % convert block floating point to fixed point s12.0
@@ -204,9 +217,9 @@ for k=1:nr_symbols
         RxModSymbols = RxModSymbols.';
         path(oldpath);
 
-        RxModSymbolsVHDL = readHIL('fft_out', Scale, '../../sim/');
+        RxModSymbolsVHDL = readHIL('fft_out', '../../sim/');
 
-%         % undo scaling for HIL and change format to s1.11
+        % change format from s12.0 to s1.11
         RxModSymbols = RxModSymbols./pow2(11);
 
         RxModSymbols = round(RxModSymbols/sqrt(NumberOfSubcarrier)*pow2(11))/pow2(11); % divide by sqrt(N)
