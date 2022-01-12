@@ -42,31 +42,31 @@ architecture beh of rx_fft is
     last   : std_ulogic;
     cnt_in : unsigned(12-1 downto 0);
 
-    start_buff : std_ulogic;
-    valid_buff : std_ulogic;
+    --start_buff : std_ulogic;
+    --valid_buff : std_ulogic;
 
-    start_fft : std_ulogic;
-    stop_fft  : std_ulogic;
+    --start_fft : std_ulogic;
+    --stop_fft  : std_ulogic;
 
-    cnt_prefetch : unsigned(LogDualis(prefetch_c)-1 downto 0);
+    --cnt_prefetch : unsigned(LogDualis(prefetch_c)-1 downto 0);
 
-    cnt_out : unsigned(12-1 downto 0);
+    --cnt_out : unsigned(12-1 downto 0);
   end record aRegSet;
 
   constant cInitVarR : aRegSet := (
     start => '0',
     last   => '0',
-    cnt_in => (others => '0'),
+    cnt_in => (others => '0')
 
-    start_buff => '0',
-    valid_buff => '0',
+    --start_buff => '0',
+    --valid_buff => '0',
 
-    start_fft => '0',
-    stop_fft  => '0',
+    --start_fft => '0',
+    --stop_fft  => '0',
 
-    cnt_prefetch => (others => '0'),
+    --cnt_prefetch => (others => '0'),
 
-    cnt_out => (others => '0')
+    --cnt_out => (others => '0')
     );
 
   signal r, nxr        : aRegSet;
@@ -74,23 +74,23 @@ architecture beh of rx_fft is
   signal fft_in_error  : std_ulogic_vector(1 downto 0) := "00";
   signal fft_out_error : std_ulogic_vector(1 downto 0);
   signal end_of_frame  : std_ulogic;
-  signal chip_cnt      : unsigned(5 downto 0);
+  --signal chip_cnt      : unsigned(5 downto 0);
   signal source_real   : signed(11 downto 0);
   signal source_imag   : signed(11 downto 0);
 
   signal source_exp : signed(5 downto 0);
 
   -- buffer output data
-  signal sink_real : std_ulogic_vector(12-1 downto 0);
-  signal sink_imag : std_ulogic_vector(12-1 downto 0);
+  --signal sink_real : std_ulogic_vector(12-1 downto 0);
+  --signal sink_imag : std_ulogic_vector(12-1 downto 0);
 
   -- fft output data
-  signal rx_fft_i : std_ulogic_vector(12-1 downto 0);
-  signal rx_fft_q : std_ulogic_vector(12-1 downto 0);
+  --signal rx_fft_i : std_ulogic_vector(12-1 downto 0);
+  --signal rx_fft_q : std_ulogic_vector(12-1 downto 0);
 
   -- concatenate buffer data
-  signal buff_in  : std_ulogic_vector((2*12)-1 downto 0);
-  signal buff_out : std_ulogic_vector((2*12)-1 downto 0);
+  --signal buff_in  : std_ulogic_vector((2*12)-1 downto 0);
+  --signal buff_out : std_ulogic_vector((2*12)-1 downto 0);
 
 begin  -- beh
 
