@@ -93,6 +93,9 @@ architecture beh of rx_fft is
   --signal buff_in  : std_ulogic_vector((2*12)-1 downto 0);
   --signal buff_out : std_ulogic_vector((2*12)-1 downto 0);
 
+  signal rx_fft_valid : std_ulogic;
+  signal rx_fft_first : std_ulogic;
+  
 begin  -- beh
 
   outreg : process(sys_reset_i, sys_clk_i)
@@ -101,6 +104,12 @@ begin  -- beh
       r <= cInitVarR;
     elsif sys_clk_i'event and sys_clk_i = '1' then
       r <= nxr;
+
+      rx_fft_i_o <= Shift_Left(signed(source_real), to_integer(signed(source_exp)));
+      rx_fft_q_o <= Shift_Left(signed(source_imag), to_integer(signed(source_exp)));
+      rx_fft_valid_o <= rx_fft_valid;
+      rx_fft_first_o <= rx_fft_first;
+      
     end if;
   end process outreg;
 
@@ -155,12 +164,12 @@ begin  -- beh
       sink_real_i => std_ulogic_vector(rx_data_i_i),
       sink_imag_i => std_ulogic_vector(rx_data_q_i),
 
-      source_valid_o => rx_fft_valid_o,
+      source_valid_o => rx_fft_valid,
 
       source_ready_i => '1',
       source_error_o => fft_out_error,
 
-      source_sop_o => rx_fft_first_o,
+      source_sop_o => rx_fft_first,
       source_eop_o => open,
 
       signed(source_real_o) => source_real,
@@ -169,8 +178,6 @@ begin  -- beh
 
 
   
-  rx_fft_i_o <= Shift_Left(signed(source_real), to_integer(signed(source_exp)));
-  
-  rx_fft_q_o <= Shift_Left(signed(source_imag), to_integer(signed(source_exp)));
+
 
 end beh;  -- of rx_fft

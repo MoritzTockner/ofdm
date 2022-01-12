@@ -19,8 +19,8 @@ module fft_ii_0_example_design_core (
 	input	sink_valid,
 	input	sink_sop,
 	input	sink_eop,
-	input	logic [17 : 0] sink_real,
-	input	logic [17 : 0] sink_imag,
+	input	logic [11 : 0] sink_real,
+	input	logic [11 : 0] sink_imag,
 	input	logic [1 : 0] sink_error,
 	input	source_ready,
    output [5 : 0] source_exp,
@@ -29,17 +29,17 @@ module fft_ii_0_example_design_core (
 	output source_sop,
 	output source_eop,
 	output source_valid,
-	output [17 : 0] source_real,
-	output [17 : 0] source_imag
+	output [11 : 0] source_real,
+	output [11 : 0] source_imag
 	);
 
-	asj_fft_si_se_so_bb #(
+	asj_fft_si_sose_so_b #(
 		.device_family("Cyclone V"),
 		.nps(128),
 		.bfp(1),
 		.nume(1),
-		.mpr(18),
-		.twr(8),
+		.mpr(12),
+		.twr(14),
 		.bpr(16),
 		.bpb(4),
 		.fpr(4),
@@ -56,7 +56,7 @@ module fft_ii_0_example_design_core (
 		.rfc2("fft_ii_0_example_design_core_2n128cos.hex"),
 		.rfc3("fft_ii_0_example_design_core_3n128cos.hex")
 	)
-	asj_fft_si_se_so_bb_inst (
+	asj_fft_si_sose_so_b_inst (
 		.clk(clk),
 		.clk_ena(1'b1),
 		.reset_n(reset_n),

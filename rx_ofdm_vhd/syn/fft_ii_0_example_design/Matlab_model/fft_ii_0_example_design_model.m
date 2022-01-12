@@ -23,12 +23,12 @@
 function [y, exp_out] = fft_ii_0_example_design_model(x,N,INVERSE) 
 addpath(strcat(getenv('QUARTUS_ROOTDIR'),'/../ip/altera/fft/lib/'));
 % Parameterization Space   
-THROUGHPUT=4;
+THROUGHPUT=1;
 
-ARCH=1;
+ARCH=2;
 
 DATA_PREC=12;
-TWIDDLE_PREC=16;
+TWIDDLE_PREC=14;
 input_vector_length = length(x);                                                              
 number_of_blocks = ceil(input_vector_length/N);                                               
 % Zero-stuff last block if necessary                                                          
