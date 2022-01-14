@@ -10,11 +10,11 @@ quantize = true;
 equalize = true;
 write_file_fft_in = true;
 read_file_fft_in = false;
-fft_model = {'ideal'};  % 'ideal', 'matlab', 'vhdl'
+fft_model = 'matlab';  % 'ideal', 'matlab', 'vhdl'
 compare_vhdl_matlab_ideal = false;
 
 filepath_data = '../../sim/';
-if write_file_fft_in && ~exist([filepath_data, 'fft_in.txt'], 'file')
+if write_file_fft_in && exist([filepath_data, 'fft_in.txt'], 'file')
     delete([filepath_data, 'fft_in.txt']);
 end
 
@@ -205,41 +205,46 @@ for k=1:nr_symbols
     RxChips = RxChips(1:NumberOfSubcarrier);
 
     if quantize
-        assert(~isempty(fft_model), 'Some fft model must be selected.');
 
         % Matlab model fft
-        if find(strcmp(fft_model, 'matlab'))
-            RxChipsMatlab = RxChips.';         % change to row vector for fft model        
+        RxChipsMatlab = RxChips.';         % change to row vector for fft model        
 
-            % change format from s1.11 to s12.0
-            RxChipsMatlab = round(RxChipsMatlab.*pow2(11));
+        % change format from s1.11 to s12.0
+        RxChipsMatlab = round(RxChipsMatlab.*pow2(11));
 
-            oldpath = addpath('../../syn/fft_ii_0_example_design/Matlab_model/');
-            [RxModSymbolsBase, RxModSymbolsExponent] = fft_ii_0_example_design_model(RxChipsMatlab, NumberOfSubcarrier, 0); 
-            path(oldpath);
+        oldpath = addpath('../../syn/fft_ii_0_example_design/Matlab_model/');
+        [RxModSymbolsBase, RxModSymbolsExponent] = fft_ii_0_example_design_model(RxChipsMatlab, NumberOfSubcarrier, 0); 
+        path(oldpath);
 
-            % Ignore exponent to prevent overflow. This is only allowed if
-            % the exponents don't change from one channel estimation to
-            % the next.
-            RxModSymbols = RxModSymbolsBase;  
+        % Ignore exponent to prevent overflow. This is only allowed if
+        % the exponents don't change from one channel estimation to
+        % the next.
+        RxModSymbolsMatlab = RxModSymbolsBase;  
 
-            % change format from s12.0 to s1.11
-            RxModSymbols = RxModSymbols./pow2(11);
-            RxModSymbols = RxModSymbols.';
-        end
+        % change format from s12.0 to s1.11
+        RxModSymbolsMatlab = RxModSymbolsMatlab./pow2(11);
+        RxModSymbolsMatlab = RxModSymbolsMatlab.';
 
         % Ideal fft
-        if find(strcmp(fft_model, 'ideal'))
-            RxModSymbolsIdeal = fft(RxChips);
-        end
+        RxModSymbolsIdeal = fft(RxChips);
 
         % VHDL model fft
-        if find(strcmp(fft_model, 'vhdl'))
-            RxModSymbolsVhdl = readHIL('fft_out', '../../sim/');
-            
-            % convert from s12.0 to s1.11
-            RxModSymbolsVhdl = RxModSymbolsVhdl./pow2(11);
+        RxModSymbolsVhdl = readHIL('fft_out', '../../sim/');            
+        % convert from s12.0 to s1.11
+        RxModSymbolsVhdl = RxModSymbolsVhdl./pow2(11);
+
+        switch fft_model
+            case 'ideal'
+                RxModSymbols = RxModSymbolsIdeal;
+            case 'matlab'
+                RxModSymbols = RxModSymbolsMatlab;
+            case 'vhdl'
+                RxModSymbols = RxModSymbolsVhdl;
+            otherwise
+                error('Some fft model must be selected.');
         end
+
+        RxModSymbols = round(RxModSymbols/sqrt(NumberOfSubcarrier)*pow2(11))/pow2(11); % divide by sqrt(N)
 
         if compare_vhdl_matlab_ideal
             RxModSymbolsIdeal = RxModSymbolsIdeal.*pow2(RxModSymbolsExponent(1));
@@ -247,19 +252,16 @@ for k=1:nr_symbols
             figure(8);
             plot(real(RxModSymbolsIdeal), 'x-', 'DisplayName', 'abs(RxModSymbolsIdeal)');
             hold on; grid on;
-            plot(real(RxModSymbols), 'x-', 'DisplayName', 'abs(RxModSymbols)');
+            plot(real(RxModSymbolsMatlab), 'x-', 'DisplayName', 'abs(RxModSymbols)');
             plot(real(RxModSymbolsVhdl), 'x-', 'DisplayName', 'abs(RxModSymbolsVhdl)');
             legend();
             hold off;
 
-            RmseRxModSymbols = rms(RxModSymbolsIdeal - RxModSymbols);
+            RmseRxModSymbols = rms(RxModSymbolsIdeal - RxModSymbolsMatlab);
             RmseRxModSymbolsVhdl = rms(RxModSymbolsIdeal - RxModSymbolsVhdl);
             fprintf('RMSE of MATLAB model = %f\n', RmseRxModSymbols);
             fprintf('RMSE of VHDL model = %f\n', RmseRxModSymbolsVhdl);
         end
-
-%         RxModSymbols = round(RxModSymbols/sqrt(NumberOfSubcarrier)*pow2(11))/pow2(11); % divide by sqrt(N)
-        RxModSymbols = round(RxModSymbolsIdeal/sqrt(NumberOfSubcarrier)*pow2(11))/pow2(11); % divide by sqrt(N)
     else
         RxModSymbols = fft(RxChips);
         RxModSymbols = RxModSymbols/sqrt(NumberOfSubcarrier);
