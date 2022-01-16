@@ -99,3 +99,20 @@ test_keras.csv
 
 # MATLAB
 *.asv
+
+rx_ofdm_vhd/sim/#comp_ip-fft.do#
+rx_ofdm_vhd/sim/eda.rar
+rx_ofdm_vhd/sim/eda/
+rx_ofdm_vhd/sim/fft_in132.txt
+rx_ofdm_vhd/sim/fft_ofdm_fft_ii_0_opt_twi1.hex
+rx_ofdm_vhd/sim/fft_ofdm_fft_ii_0_opt_twi2.hex
+rx_ofdm_vhd/sim/fft_ofdm_fft_ii_0_opt_twi3.hex
+rx_ofdm_vhd/sim/fft_ofdm_fft_ii_0_opt_twr1.hex
+rx_ofdm_vhd/sim/fft_ofdm_fft_ii_0_opt_twr2.hex
+rx_ofdm_vhd/sim/fft_ofdm_fft_ii_0_opt_twr3.hex
+rx_ofdm_vhd/src/vhd/beh/rx_fft-beh-a - Copy (2).vhd
+rx_ofdm_vhd/src/vhd/beh/rx_fft-beh-a - Copy.vhd
+rx_ofdm_vhd/src/vhd/beh/#rx_fft-beh-a.vhd#
+
+
+transcript

@@ -42,6 +42,7 @@ architecture beh of fft_tb is
     signal rx_fft_valid_s, rx_fft_first_s : std_ulogic                    := '0';
 
     file rx_data_f : text;
+file rx_fft_f : text;
     file rx_bits_f : text;
 
     type State_type is (INPUT_STAGE, CALCULATION_STAGE, OUTPUT_STAGE);  -- Define the states
@@ -49,8 +50,7 @@ architecture beh of fft_tb is
 
 
 begin  --beh
-
-    sys_clk_s <= not(sys_clk_s) after 6250 ps;
+  sys_clk_s <= not(sys_clk_s) after 6250 ps;
 
     sys_reset_s <= '1' after 100 ns;
 
@@ -72,18 +72,27 @@ begin  --beh
     Stimuli : process
         variable line_v                : line;
         variable cycle_cnt_v, i_v, q_v : integer := 40-1;
+	variable sample_cnt_v : integer := 0;
 
     begin  -- process Stimuli
+rx_data_first_s <= '0';
         wait for 200 ns;
 
-        wait until (sys_clk_s = '1' and sys_reset_s = '1');
+        --wait until (sys_clk_s = '1' and sys_reset_s = '1');
         file_open(rx_data_f, "./fft_in.txt", read_mode);
-        rx_data_first_s <= '1';
+        --rx_data_first_s <= '1';
 
         while not(endfile(rx_data_f)) loop
-            -- wait until (sys_clk_s = '1' and sys_reset_s = '1');
+            wait until (sys_clk_s = '1' and sys_reset_s = '1');
             cycle_cnt_v := cycle_cnt_v+1;
+
             if (cycle_cnt_v = 40) then
+				
+				if sample_cnt_v = 0 then
+					sample_cnt_v := 160-1;
+					rx_data_first_s <= '1';
+				end if;
+sample_cnt_v := sample_cnt_v - 1;
                 readline(rx_data_f, line_v);
                 read(line_v, i_v);
                 read(line_v, q_v);
@@ -95,28 +104,28 @@ begin  --beh
                 rx_data_valid_s <= '0';
                 rx_data_first_s <= '0';
             end if;
-            wait until (sys_clk_s = '1' and sys_reset_s = '1');
+            --wait until (sys_clk_s = '1' and sys_reset_s = '1');
         end loop;
         file_close(rx_data_f);
 
         rx_data_valid_s <= '0';
         rx_data_first_s <= '0';
 
-        State <= CALCULATION_STAGE;
+        -- State <= CALCULATION_STAGE;
 
-        wait until (rising_edge(sys_clk_s) and sys_reset_s = '1' and rx_fft_first_s = '1' and rx_fft_valid_s = '1');
-        State <= OUTPUT_STAGE;
+        -- wait until (rising_edge(sys_clk_s) and sys_reset_s = '1' and rx_fft_first_s = '1' and rx_fft_valid_s = '1');
+        -- State <= OUTPUT_STAGE;
 
-        file_open(rx_data_f, "./fft_out.txt", write_mode);
-        for I in 0 to 127-1 loop
-            write(line_v,  to_integer(rx_fft_i_s));
-            write(line_v, string'(" "));
-            write(line_v,  to_integer(rx_fft_q_s));
-            writeline(rx_data_f, line_v);
-            wait until (rising_edge(sys_clk_s) and sys_reset_s = '1' and rx_fft_valid_s = '1');
-            
-        end loop;
-        file_close(rx_data_f);
+        -- file_open(rx_data_f, "./fft_out.txt", write_mode);
+        -- for I in 0 to 127-1 loop 
+            -- write(line_v,  to_integer(rx_fft_i_s));
+            -- write(line_v, string'(" "));
+            -- write(line_v,  to_integer(rx_fft_q_s));
+            -- writeline(rx_data_f, line_v);
+            -- wait until (rising_edge(sys_clk_s) and sys_reset_s = '1' and rx_fft_valid_s = '1');
+           
+        -- end loop;
+        -- file_close(rx_data_f);
 
 
 
@@ -168,13 +177,46 @@ begin  --beh
 --         file_close(rx_data_f);
 
         ---------------------------------------------------------------------------------------------------------------
+        -- wait for 10000 ns;
+
+        -- assert false report "Finished successfully" severity failure;
+        wait;
+
+    end process;
+
+ Stimuli_tx : process
+        variable line_v                : line;
+        variable cycle_cnt_v, i_v, q_v : integer := 40-1;
+		variable i : integer := 25;
+		
+    begin  -- process Stimuli
+        wait for 200 ns;
+
+ file_open(rx_fft_f, "./fft_out.txt", write_mode);
+		while i /= 0 loop
+			i := i - 1;
+			
+			wait until (rising_edge(sys_clk_s) and sys_reset_s = '1' and rx_fft_first_s = '1' and rx_fft_valid_s = '1');
+			State <= OUTPUT_STAGE;
+
+			
+			for I in 0 to 127-1 loop
+				write(line_v,  to_integer(rx_fft_i_s));
+				write(line_v, string'(" "));
+				write(line_v,  to_integer(rx_fft_q_s));
+				writeline(rx_fft_f, line_v);
+				wait until (rising_edge(sys_clk_s) and sys_reset_s = '1' and rx_fft_valid_s = '1');
+				
+			end loop;
+			
+		end loop;
+file_close(rx_fft_f);
+        ---------------------------------------------------------------------------------------------------------------
         wait for 10000 ns;
 
         assert false report "Finished successfully" severity failure;
         wait;
 
     end process;
-
-
 
 end beh;
