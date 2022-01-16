@@ -1,6 +1,6 @@
-function data = readHIL(filename, scale, filepath)
+function data = readHIL(filename, filepath)
     
-    if nargin < 3
+    if nargin < 2
         filepath = './';
     end
 
@@ -8,7 +8,11 @@ function data = readHIL(filename, scale, filepath)
     data_i = [];
     data_q = [];
 
-    fileID = fopen([filepath, filename, '.txt'], 'r');
+    filepath_full = [filepath, filename, '.txt'];
+    fileID = fopen(filepath_full, 'r');
+
+    assert(fileID ~= -1, sprintf('Invalid filename/path: %s\n', filepath_full));
+
     line = fgets(fileID);
     while line ~= -1
         data = sscanf(line, '%d %d');
@@ -19,7 +23,6 @@ function data = readHIL(filename, scale, filepath)
     end
     fclose(fileID);
 
-    data_scaled = data_i + 1j*data_q;
-    data = data_scaled.*scale;
+    data = data_i + 1j*data_q;
 
 end

@@ -96,3 +96,6 @@ test_hdl.csv
 test_keras.csv
 .#*
 #*.vhd#
+
+# MATLAB
+*.asv

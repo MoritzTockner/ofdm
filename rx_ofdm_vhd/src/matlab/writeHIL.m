@@ -5,10 +5,9 @@ function writeHIL(data, filename, filepath)
     end
 
     %% write files for HIL
-%     scale = max(max(abs(real(data))),max(abs(imag(data))));
 
     % Write to .txt file
-    fileID = fopen([filepath, filename, '.txt'], 'w');
+    fileID = fopen([filepath, filename, '.txt'], 'a');
     for idx = 1:length(data)
         fprintf(fileID, '%i %i\n', real(data(idx)), imag(data(idx)));
     end
