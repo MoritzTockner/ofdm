@@ -39,7 +39,7 @@ module fft_ofdm_fft_ii_0 (
 		.bfp(1),
 		.nume(1),
 		.mpr(12),
-		.twr(14),
+		.twr(8),
 		.bpr(16),
 		.bpb(4),
 		.fpr(4),

@@ -1,0 +1,4 @@
+
+# Fragen
+## Erklären Sie Abweichungen (wenn vorhanden)
+-Die Simulation passt bis auf 1 bis 2 Bit genau zusammen. Die geringe Abweichung kommt aus der Tatsache, dass das Simulationsfile vom FFT-IP Core nicht bitgenau arbeit (wie in der Übung erwähnt)

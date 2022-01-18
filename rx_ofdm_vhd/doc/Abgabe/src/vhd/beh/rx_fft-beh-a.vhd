@@ -6,7 +6,7 @@
 -- Author     : 
 -- Company    : 
 -- Created    : 2021-12-13
--- Last update: 2022-01-16
+-- Last update: 2022-01-12
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -35,32 +35,32 @@ architecture beh of rx_fft is
   end LogDualis;
 
   constant reset_active_c : std_ulogic := '0';
-  constant prefetch_c     : natural    := 30;  -- load entries into Buffer befor
 
-  type aRegSet is record    --! start, last, cnt_in    
-    start : std_ulogic; --! start, last, cnt_in            
+  type aRegSet is record --! start, last, cnt_in   
+    start  : std_ulogic;
     last   : std_ulogic;
-    cnt_in : unsigned(LogDualis(128)-1 downto 0);
+    cnt_in : unsigned(LogDualis(127)-1 downto 0);
   end record aRegSet;
 
   --! if data_firts_i until 128 samples, Strobe after 128 samples, clount 128 damples
   constant cInitVarR : aRegSet := (
-    start => '0',
-    last   => '0', --! start, last, cnt_in 
+    start => '0', --! start, last, cnt_in
+    last   => '0',  
     cnt_in => (others => '0')
     );
 
-  signal r, nxr        : aRegSet; --! start, last, cnt_in 
+  signal r, nxr        : aRegSet;  --! start, last, cnt_in 
   signal fft_isready   : std_ulogic;
   signal fft_in_error  : std_ulogic_vector(1 downto 0) := "00";
   signal fft_out_error : std_ulogic_vector(1 downto 0);
   signal end_of_frame  : std_ulogic;
-  --signal chip_cnt      : unsigned(5 downto 0);
   signal source_real   : signed(11 downto 0);
   signal source_imag   : signed(11 downto 0);
 
   signal sink_valid : std_ulogic;
   signal source_exp : signed(5 downto 0);
+  constant Shiftamount : natural := 0;
+
 
   signal rx_fft_valid : std_ulogic;
   signal rx_fft_first : std_ulogic;
@@ -74,8 +74,8 @@ begin  -- beh
     elsif sys_clk_i'event and sys_clk_i = '1' then
       r <= nxr;
 
-      rx_fft_i_o <= source_real; -- Shift_Right(signed(source_real), to_integer(signed(source_exp)));
-      rx_fft_q_o <= source_imag; -- Shift_Right(signed(source_imag), to_integer(signed(source_exp)));
+      rx_fft_i_o <= Shift_Left(signed(source_real), Shiftamount); --source_real; -- to_integer(signed(
+      rx_fft_q_o <= Shift_Left(signed(source_imag), Shiftamount); --source_imag; --
       rx_fft_valid_o <= rx_fft_valid;
       rx_fft_first_o <= rx_fft_first;
       
@@ -100,9 +100,6 @@ begin  -- beh
     end if;
     
     if rx_data_valid_i = '1' and (rx_data_first_i = '1' or r.start = '1') then
-      if r.last <= '1' then
-        nxr.last <= '0';
-      end if;
       
       if r.cnt_in = to_unsigned(127-1, r.cnt_in'length) then
         nxr.cnt_in <= to_unsigned(0, r.cnt_in'length);
@@ -110,7 +107,6 @@ begin  -- beh
 	nxr.start <= '0';
       else
         nxr.cnt_in <= r.cnt_in + 1;
-        nxr.last <= '0';
       end if;
     end if;
 
