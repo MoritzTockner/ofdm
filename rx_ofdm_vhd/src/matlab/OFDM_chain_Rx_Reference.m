@@ -1,6 +1,6 @@
 
 %% settings
-clearvars;
+clearvars; close all;
 %load('Tx_setup.mat');
 %HIL=true;
 
@@ -8,14 +8,20 @@ clearvars;
 tracking = true;
 quantize = true;
 equalize = true;
-write_file_fft_in = true;
+write_file_fft_in = false;
 read_file_fft_in = false;
-fft_model = 'matlab';  % 'ideal', 'matlab', 'vhdl'
+write_file_fft_out = false;
+fft_model = 'vhdl';  % 'ideal', 'matlab', 'vhdl'
+equalizer_model = 'vhdl'; % 'ideal', 'matlab', 'vhdl'
 compare_vhdl_matlab_ideal = false;
+UseVhdlData = false;
 
 filepath_data = '../../sim/';
 if write_file_fft_in && exist([filepath_data, 'fft_in.txt'], 'file')
     delete([filepath_data, 'fft_in.txt']);
+end
+if write_file_fft_out && exist([filepath_data, 'fft_out_matlab.txt'], 'file')
+    delete([filepath_data, 'fft_out_matlab.txt']);
 end
 
 nr_symbols=30;  %total number of transmitted symbols (sync+equalize+data)
@@ -25,6 +31,11 @@ NumberOfGuardChips = 32;
 osr=8; %oversampling rate of AD9361 Rx Data
 AntennaSampleRate=2e6;
 pause_key=false;
+
+% Equalizer bitwidths
+Hk_Bits = 11;
+multBits = 7;
+divBits = 5;
 
 figure(1); %Constellation Diagram
 clf;
@@ -66,6 +77,31 @@ phase_offset=0;
 allRxBits=[];
 
 load TxSymbol_equal.mat;
+
+% convert the TxSymbol_equal into two representation bits
+% "00" -> 1. Quadrant
+% "01" -> 2. Quadrant
+% "10" -> 3. Quadrant
+% "11" -> 4. Quadrant
+
+TxSymbol_equal_bit = zeros(length(TxSymbol_equal), 1);
+
+for sym = 1:length(TxSymbol_equal)
+    if imag(TxSymbol_equal(sym)) >= 0
+        if real(TxSymbol_equal(sym)) >= 0
+            TxSymbol_equal_bit(sym) = 1;
+        else
+            TxSymbol_equal_bit(sym) = 2;
+        end
+    else
+        if real(TxSymbol_equal(sym)) >= 0
+            TxSymbol_equal_bit(sym) = 4;
+        else
+            TxSymbol_equal_bit(sym) = 3;
+        end
+    end
+end
+
 load('tx_data_rx_air.mat');
 rx_out=cf_ad9361_lpc_voltage2+1i*cf_ad9361_lpc_voltage3;
 figure(4)
@@ -184,6 +220,10 @@ else
     RxAntennaChips = RxAntennaChips.*CFO_bb_cancel;      
 end
     
+RxModSymbolsVhdlVec = readHIL('fft_out', '../../sim/');
+
+MaxRxModSymbolsReal = 0;
+MaxRxModSymbolsImag = 0;
 
 %% RX Part
 for k=1:nr_symbols  
@@ -221,6 +261,10 @@ for k=1:nr_symbols
         % the next.
         RxModSymbolsMatlab = RxModSymbolsBase;  
 
+        if write_file_fft_out
+            writeHIL(RxModSymbolsMatlab, 'fft_out_matlab', filepath_data);
+        end
+
         % change format from s12.0 to s1.11
         RxModSymbolsMatlab = RxModSymbolsMatlab./pow2(11);
         RxModSymbolsMatlab = RxModSymbolsMatlab.';
@@ -229,9 +273,8 @@ for k=1:nr_symbols
         RxModSymbolsIdeal = fft(RxChips);
 
         % VHDL model fft
-        RxModSymbolsVhdl = readHIL('fft_out', '../../sim/');            
         % convert from s12.0 to s1.11
-        RxModSymbolsVhdl = RxModSymbolsVhdl./pow2(11);
+        RxModSymbolsVhdl = RxModSymbolsVhdlVec((k-1)*NumberOfSubcarrier+1:k*NumberOfSubcarrier)./pow2(11);
 
         switch fft_model
             case 'ideal'
@@ -244,17 +287,30 @@ for k=1:nr_symbols
                 error('Some fft model must be selected.');
         end
 
-        RxModSymbols = round(RxModSymbols/sqrt(NumberOfSubcarrier)*pow2(11))/pow2(11); % divide by sqrt(N)
+        % RxModSymbols = RxModSymbols.*pow2(2);
+        MaxRxModSymbolsReal = max(max(real(RxModSymbols)), MaxRxModSymbolsReal);
+        MaxRxModSymbolsImag = max(max(imag(RxModSymbols)), MaxRxModSymbolsImag);
 
         if compare_vhdl_matlab_ideal
             RxModSymbolsIdeal = RxModSymbolsIdeal.*pow2(RxModSymbolsExponent(1));
             
             figure(8);
-            plot(real(RxModSymbolsIdeal), 'x-', 'DisplayName', 'abs(RxModSymbolsIdeal)');
+            subplot(211);
+            plot(abs(RxModSymbolsIdeal), 'x-', 'DisplayName', 'abs(RxModSymbolsIdeal)');
             hold on; grid on;
-            plot(real(RxModSymbolsMatlab), 'x-', 'DisplayName', 'abs(RxModSymbols)');
-            plot(real(RxModSymbolsVhdl), 'x-', 'DisplayName', 'abs(RxModSymbolsVhdl)');
+            plot(abs(RxModSymbolsMatlab), 'x-', 'DisplayName', 'abs(RxModSymbolsMatlab)');
+            plot(abs(RxModSymbolsVhdl), 'x-', 'DisplayName', 'abs(RxModSymbolsVhdl)');
             legend();
+            title('|RxModSymbols|');
+            hold off;
+
+            subplot(212);
+            plot(angle(RxModSymbolsIdeal), 'x-', 'DisplayName', 'angle(RxModSymbolsIdeal)');
+            hold on; grid on;
+            plot(angle(RxModSymbolsMatlab), 'x-', 'DisplayName', 'angle(RxModSymbolsMatlab)');
+            plot(angle(RxModSymbolsVhdl), 'x-', 'DisplayName', 'angle(RxModSymbolsVhdl)');
+            legend();
+            title('angle(RxModSymbols)');
             hold off;
 
             RmseRxModSymbols = rms(RxModSymbolsIdeal - RxModSymbolsMatlab);
@@ -266,23 +322,101 @@ for k=1:nr_symbols
         RxModSymbols = fft(RxChips);
         RxModSymbols = RxModSymbols/sqrt(NumberOfSubcarrier);
     end
-    %% Modulation Demapper 
-    if (k>1 && k<=nr_equalize+1 && equalize)
-      corr_idx=0;
-      %do channel estimation
-      if k==2  %first run of channel estimation (reset Hk_inv)
-        disp('Start channel estimation');
-        Hk=zeros(NumberOfSubcarrier,1);
-      end
 
-      Hk=Hk+RxModSymbols;
-      if k==nr_equalize+1
-        Hk=Hk./nr_equalize;
-        if quantize
-            Hk_inv=round(1./(Hk./TxSymbol_equal)*pow2(11))/pow2(11);
-        else
-            Hk_inv=1./(Hk./TxSymbol_equal);
+    if (k>1 && k<=nr_equalize+1 && equalize)
+        %% Channel Estimation
+        corr_idx=0;
+        
+        if k==2  %first run of channel estimation (reset Hk_inv)
+            disp('Start channel estimation');
+            Hk=zeros(NumberOfSubcarrier,1);
         end
+
+        Hk=Hk+RxModSymbols;
+        assert(all(abs(Hk)./pow2(Hk_Bits) < 1));
+
+        if k==nr_equalize+1
+            if quantize
+                switch equalizer_model
+                    case {'ideal', 'matlab'}
+                        Hk=floor((Hk./nr_equalize).*pow2(Hk_Bits))./pow2(Hk_Bits);
+                        Hk_inv=round(1./(Hk./TxSymbol_equal)*pow2(Hk_Bits))/pow2(Hk_Bits);
+    
+                    case 'vhdl'
+                        Hk=floor((Hk./nr_equalize).*pow2(Hk_Bits))./pow2(Hk_Bits);
+    
+                        % TODO in HW mit 2 Bits welche den Quadranten repräsentieren ->
+                        % (a+ib) / (x+iy) -> konjugiert komplex erweitern
+                        % (a+ib) * (x-iy) / (x²+y²) -->
+    
+                        % (a*x + b*y)     (b*x - a*y)
+                        % ___________ + i*___________
+                        % (x*x + y*y)     (x*x + y*y)
+    
+                        % x = real (Hk) | a = real(TxSymbol_equal)
+                        % y = imag (Hk) | b = imag(TxSymbol_equal)
+    
+                        for CurrSym = 1:NumberOfSubcarrier
+    
+                            if TxSymbol_equal_bit(CurrSym) == 1
+                                a = floor((1/sqrt(2))*pow2(6))/pow2(6);
+                                b = floor((1/sqrt(2))*pow2(6))/pow2(6);
+                            elseif TxSymbol_equal_bit(CurrSym) == 2
+                                a = -floor((1/sqrt(2))*pow2(6))/pow2(6);
+                                b = floor((1/sqrt(2))*pow2(6))/pow2(6);
+                            elseif TxSymbol_equal_bit(CurrSym) == 3
+                                a = -floor((1/sqrt(2))*pow2(6))/pow2(6);
+                                b = -floor((1/sqrt(2))*pow2(6))/pow2(6);
+                            elseif TxSymbol_equal_bit(CurrSym) == 4
+                                a = floor((1/sqrt(2))*pow2(6))/pow2(6);
+                                b = -floor((1/sqrt(2))*pow2(6))/pow2(6);
+                            end
+                            assert(abs(a/pow2(6)) < 1)
+                            assert(abs(b/pow2(6)) < 1)
+    
+                            % Hk Hk_Bits - Bit
+                            x = floor((real(Hk(CurrSym)))*pow2(multBits))/pow2(multBits);
+                            y = floor((imag(Hk(CurrSym)))*pow2(multBits))/pow2(multBits);
+                            assert(abs(x/pow2(multBits)) < 1)
+                            assert(abs(y/pow2(multBits)) < 1)
+    
+                            ax = floor((a * x)*pow2(multBits))/pow2(multBits);
+                            by = floor((b * y)*pow2(multBits))/pow2(multBits);
+                            bx = floor((b * x)*pow2(multBits))/pow2(multBits);
+                            ay = floor((a * y)*pow2(multBits))/pow2(multBits);
+                            assert(abs(ax/pow2(multBits)) < 1)
+                            assert(abs(by/pow2(multBits)) < 1)
+                            assert(abs(bx/pow2(multBits)) < 1)
+                            assert(abs(ay/pow2(multBits)) < 1)
+    
+                            xx = floor((x * x)*pow2(multBits))/pow2(multBits);
+                            yy = floor((y * y)*pow2(multBits))/pow2(multBits);
+                            assert(abs(xx/pow2(multBits)) < 1)
+                            assert(abs(yy/pow2(multBits)) < 1)
+    
+                            xx_yy = floor((xx + yy)*pow2(multBits))/pow2(multBits);
+                            assert(abs(xx_yy/pow2(multBits)) < 1)
+    
+                            ax_by = floor((ax + by)*pow2(multBits))/pow2(multBits);
+                            bx_ay = floor((bx - ay)*pow2(multBits))/pow2(multBits);
+                            assert(abs(ax_by/pow2(multBits)) < 1)
+                            assert(abs(bx_ay/pow2(multBits)) < 1)
+    
+                            Hk_real = floor((ax_by / xx_yy)*pow2(divBits))/pow2(divBits);
+                            Hk_imag = floor((bx_ay / xx_yy)*pow2(divBits))/pow2(divBits);
+                            assert(abs(Hk_real/pow2(divBits)) < 1)
+                            assert(abs(Hk_imag/pow2(divBits)) < 1)
+    
+                            Hk_inv(CurrSym) = Hk_real + 1i*Hk_imag;
+                        end
+                end
+            else
+                Hk=Hk./nr_equalize;
+                Hk_inv=1./(Hk./TxSymbol_equal);
+            end
+
+        end
+
         disp('Finished channel estimation');
         figure(21)
         clf;
@@ -291,29 +425,20 @@ for k=1:nr_symbols
         ylabel('abs(Hk)');
         xlabel('subcarrier');
         disp('')
-        if pause_key
-            pause;
-            disp('Press key to continue')
-        end    
-      end
       
     else
-        if (equalize==false && k==2)||(equalize && k==nr_equalize+2)
-          disp('Start regular receive + timing tracking');
-          if pause_key
-                disp('Press key to continue')
-                pause;
-          end          
-        end
+            %% Start regular receive + timing tracking
         
-        %correct RxModSymbols
-        if quantize
-          RxModSymbols=round(RxModSymbols.*Hk_inv*pow2(11))/pow2(11);
-        else
-          RxModSymbols=RxModSymbols.*Hk_inv;
+            % Equalizer
+            switch equalizer_model
+                case {'matlab', 'vhdl'}
+                    RxModSymbols=floor((RxModSymbols.*Hk_inv).*pow2(Hk_Bits))./pow2(Hk_Bits);
+                case 'ideal'
+                    RxModSymbols=RxModSymbols.*Hk_inv;
         end    
-        RxModSymbVec=[RxModSymbVec;RxModSymbols];
+            RxModSymbVec = [RxModSymbVec; RxModSymbols];
         
+            %% Modulation Demapper
         if k>1 %dont_store bits in first sync symbol
           RxSymbols=zeros(length(RxModSymbols),2);
           for j=1:length(RxSymbols(:,1))
